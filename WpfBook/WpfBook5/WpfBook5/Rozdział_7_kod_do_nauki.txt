@@ -1,0 +1,284 @@
+Plik zawiera kody do nauki. Objaœnienia na temat, gdzie nale¿y umieœciæ poszczególne 
+fragmenty kodu zawarte s¹ w podrêczniku Kempa A. "Wprowadzenie do WPF. 
+Tworzenie aplikacji WPF przy u¿yciu XAML i C#", Helion, Gliwice 2017
+***************************************************************************
+Rozdzia³ 7. Kontrolka DataGrid — aplikacja Edycja produktów
+***************************************************************************
+
+===========================================================================
+7.1 Kontrolka DataGrid z autogenerowaniem kolumn
+===========================================================================
+
+<Grid Margin="10">
+    <DataGrid Name="gridProdukty"/>
+</Grid>
+
+
+// W pliku Produkt.cs nale¿y wpisaæ kod klasy Produkt umieszczony na pocz¹tku podrozdzia³u 5.3, 
+// przy czym trzeba dodaæ do klasy konstruktor domyœlny (bezargumentowy z pustymi klamrami) wymagany przez DataGrid:
+
+public Produkt()
+{ }
+
+// W pliku MainWindow.xaml.cs nale¿y dodaæ deklaracjê przestrzeni nazw:
+
+using System.Collections.ObjectModel;
+
+// I podmieniæ kod klasy MainWindow na nastêpuj¹cy:
+
+public partial class MainWindow : Window
+{
+    private ObservableCollection<Produkt> ListaProduktow = null;
+
+    public MainWindow()
+    {
+        InitializeComponent();
+        PrzygotujWiazanie();
+    }
+
+    private void PrzygotujWiazanie()
+    {
+        ListaProduktow = new ObservableCollection<Produkt>();
+        ListaProduktow.Add(new Produkt("O1-11", "o³ówek", 8, "Katowice 1"));
+        ListaProduktow.Add(new Produkt("PW-20", "pióro wieczne", 75, "Katowice 2"));
+        ListaProduktow.Add(new Produkt("DZ-10", "d³ugopis ¿elowy", 1121, "Katowice 1"));
+        ListaProduktow.Add(new Produkt("DZ-12", "d³ugopis kulkowy", 280, "Katowice 2"));
+        gridProdukty.ItemsSource = ListaProduktow;
+    }
+}
+
+===========================================================================
+7.2 Definiowanie kolumn dla DataGrid
+===========================================================================
+
+W oknie XAML nale¿y podmieniæ kod ze znacznikami DataGrid na nastêpuj¹cy:
+
+<DataGrid Name="gridProdukty" AutoGenerateColumns="False" AlternatingRowBackground="LightBlue" GridLinesVisibility="None">
+    <DataGrid.Columns>
+        <DataGridTextColumn Header="Symbol" Binding="{Binding Symbol}" />
+        <DataGridTextColumn Header="Nazwa" Binding="{Binding Nazwa}" />
+        <DataGridTextColumn Header="Liczba sztuk" Binding="{Binding LiczbaSztuk}">
+            <DataGridTextColumn.ElementStyle>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="HorizontalAlignment" Value="Right" />
+                </Style>
+            </DataGridTextColumn.ElementStyle>
+        </DataGridTextColumn>
+    <DataGridTextColumn Header="Magazyn" Binding="{Binding Magazyn}" />
+    </DataGrid.Columns>
+</DataGrid>
+
+===========================================================================
+7.3 Kolumna DataGridComboBoxColumn
+===========================================================================
+
+Nowa wersja definicji dla kolumny "Magazyn":
+
+<DataGridComboBoxColumn x:Name="nazwaMagazynu" Header="Magazyn" SelectedItemBinding="{Binding Magazyn}"/>
+
+// W klasie MainWindow na koñcu metody PrzygotujWiazanie dopisz kod:
+ObservableCollection<string> ListaMagazynow = 
+    new ObservableCollection<string>() { "Katowice 1", "Katowice 2", "Gliwice 1" }; 
+nazwaMagazynu.ItemsSource = ListaMagazynow;
+
+===========================================================================
+7.4 Wi¹zanie kontrolki DataGrid z dokumentem XML
+===========================================================================
+Zawartoœæ pliku Produkty.xml:
+
+<?xml version="1.0" encoding="iso-8859-2"?>
+<ListaProduktow>
+  <Produkt>
+    <Symbol>O1-11</Symbol>
+    <Nazwa>o³ówek</Nazwa>
+    <LiczbaSztuk>8</LiczbaSztuk>
+    <Magazyn>Katowice 1</Magazyn>
+  </Produkt>
+  <Produkt>
+    <Symbol>PW-20</Symbol>
+    <Nazwa>pióro wieczne</Nazwa>
+    <LiczbaSztuk>75</LiczbaSztuk>
+    <Magazyn>Katowice 2</Magazyn>
+  </Produkt>
+  <Produkt>
+    <Symbol>DZ-10</Symbol>
+    <Nazwa>d³ugopis ¿elowy</Nazwa>
+    <LiczbaSztuk>1121</LiczbaSztuk>
+    <Magazyn>Katowice 1</Magazyn>
+  </Produkt>
+  <Produkt>
+    <Symbol>DZ-12</Symbol>
+    <Nazwa>d³ugopis kulkowy</Nazwa>
+    <LiczbaSztuk>280</LiczbaSztuk>
+    <Magazyn>Katowice 2</Magazyn>
+  </Produkt>
+</ListaProduktow>
+
+Kod XAML:
+
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid x:Name="gridProdukty" AutoGenerateColumns="False" Margin="10" AlternatingRowBackground="Lavender" GridLinesVisibility="None" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Elements[Produkt]}">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Symbol" Binding="{Binding Element[Symbol].Value}"/>
+            <DataGridTextColumn Header="Nazwa" Binding="{Binding Element[Nazwa].Value}"/>
+            <DataGridTextColumn Header="Liczba sztuk" Binding="{Binding Element[LiczbaSztuk].Value}"/>
+            <DataGridComboBoxColumn x:Name="nazwaMagazynu" Header="Magazyn" SelectedItemBinding="{Binding Element[Magazyn].Value}"/>
+        </DataGrid.Columns>
+    </DataGrid>
+    <Button Grid.Row="1" Grid.Column="1" Margin ="5" MinWidth="120" HorizontalAlignment="Right" Height="30" Content="Zapisz" Click="btnZapisz_Click"/>
+</Grid>
+
+Kod C#:
+
+// W pliku MainWindow.xaml.cs nale¿y dodaæ dyrektywy using:
+
+using System.Collections.ObjectModel;
+using System.Xml.Linq;
+using System.IO;
+
+// i podmieniæ kod klasy MainWindow na nastêpuj¹cy:
+
+public partial class MainWindow : Window
+{
+    private string plik1= @"..\..\dane\Produkty.xml";     // Plik Ÿród³owy
+    private string plik2 = @"..\..\dane\Produkty2.xml";   // Plik wynikowy
+    private XElement wykazProduktow;
+    public MainWindow()
+    {
+        InitializeComponent();
+        PrzygotujWiazanie();
+    }
+    private void PrzygotujWiazanie()
+    {
+        if(File.Exists(plik1))  
+            wykazProduktow = XElement.Load(plik1);  // Za³adowanie danych z pliku Ÿród³owego
+        gridProdukty.DataContext = wykazProduktow;
+        ObservableCollection<string> ListaMagazynow = 
+           new ObservableCollection<string>() {"Katowice 1", "Katowice 2", "Gliwice 1"};
+        nazwaMagazynu.ItemsSource = ListaMagazynow;
+    }
+    private void btnZapisz_Click(object sender, RoutedEventArgs e)
+    {
+        wykazProduktow.Save(plik2);  // Zapisanie danych do pliku wynikowego
+        MessageBox.Show("Pomyœlnie zapisano dane do pliku");
+    }
+}
+
+===========================================================================
+7.6 Wskazówki do zadañ
+===========================================================================
+
+Wskazówki do zadania 7.1
+---------------------------------------------------------------------------
+
+// Program wymaga dodania nowej w³aœciwoœci do klasy Produkt: 
+
+public Uri Zdjecie { get; set; }
+
+W kodzie XAML nale¿y zdefiniowaæ now¹ kolumnê dla zdjêcia:
+
+<DataGridTemplateColumn Header="Zdjêcie" MaxWidth="50" IsReadOnly="True">
+    <DataGridTemplateColumn.CellTemplate>
+        <DataTemplate>
+            <Image Source="{Binding Path=Zdjecie}"/>
+        </DataTemplate>
+    </DataGridTemplateColumn.CellTemplate>
+</DataGridTemplateColumn>
+
+Wskazówki do zadania 7.2
+---------------------------------------------------------------------------
+
+Kod XAML:
+
+<DataGrid.RowDetailsTemplate>
+    <DataTemplate>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="10" Text="Opis produktu:"/>
+            <TextBox Margin="10" Text="{Binding Path=Opis}" TextWrapping="Wrap" FontWeight="Bold" Foreground="BlueViolet" Width ="150"/>
+            <Button x:Name="btnZdjecie" Margin="10" Click="btnZdjecie_Click" Content="Dodaj lub zmieñ zdjêcie" Height="30"/>
+        </StackPanel>
+    </DataTemplate>
+</DataGrid.RowDetailsTemplate>
+
+Kod C#:
+
+private void btnZdjecie_Click(object sender, RoutedEventArgs e)
+{
+    Microsoft.Win32.OpenFileDialog dialog = new Microsoft.Win32.OpenFileDialog();
+    dialog.Title = "Wybierz zdjêcie";
+    dialog.Filter = "Image files (*.jpg,*.png;*.jpeg)|*.jpg;*.png;*.jpeg|All files (*.*)|*.*";
+    dialog.InitialDirectory = @"C:\temp\";
+    if (dialog.ShowDialog() == true)
+    {
+        (gridProdukty.SelectedItem as Produkt).Zdjecie = new Uri(dialog.FileName);
+        gridProdukty.CommitEdit(DataGridEditingUnit.Cell, true);
+        gridProdukty.CommitEdit();
+        CollectionViewSource.GetDefaultView(gridProdukty.ItemsSource).Refresh();
+    }
+}
+
+Wskazówki do zadania 7.3
+---------------------------------------------------------------------------
+
+Kod C#:
+ 
+// Na koñcu metody PrzygotujWiazanie dodaj definicjê widoku i kryterium grupowania dla tego widoku:
+
+ICollectionView widok = CollectionViewSource.GetDefaultView(gridProdukty.ItemsSource);
+widok.GroupDescriptions.Add(new PropertyGroupDescription("Magazyn"));
+
+Kod XAML:
+
+<DataGrid.GroupStyle>
+    <GroupStyle>
+        <GroupStyle.ContainerStyle>
+            <Style TargetType="{x:Type GroupItem}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GroupItem}">
+                            <Expander>
+                                <Expander.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Magazyn:" Margin="5" />
+                                        <TextBlock Text="{Binding Path=Name}" Margin="5"
+                                                 FontWeight="Bold" Foreground="Blue" /> 
+                                        <TextBlock Text="Liczba produktów:" Margin="5"/>
+                                        <TextBlock Text="{Binding Path=ItemCount}" 
+                                        Margin="5" FontWeight="Bold" Foreground="Blue"/>
+                                    </StackPanel>
+                                </Expander.Header>
+                                <ItemsPresenter/>
+                            </Expander>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </GroupStyle.ContainerStyle>
+    </GroupStyle>
+</DataGrid.GroupStyle>
+
+Kontrolki Expander mo¿na u¿ywaæ niezale¿nie od DataGrid i grupowania. Przetestuj w osobnym projekcie prost¹ definicjê kontrolki Expander:
+
+<Expander Header="Adres korespondencyjny">
+    <StackPanel>
+        <TextBlock Text="Miasto:"/>
+        <TextBlock Text="Ulica:"/>
+        <TextBlock Text="Nr domu:"/>
+    </StackPanel>
+</Expander>
+
+
+
+
+
+
+
+

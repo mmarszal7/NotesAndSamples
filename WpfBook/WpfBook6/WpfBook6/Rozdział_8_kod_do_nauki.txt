@@ -1,0 +1,202 @@
+Plik zawiera kody do nauki. Objaœnienia na temat, gdzie nale¿y umieœciæ poszczególne 
+fragmenty kodu zawarte s¹ w podrêczniku Kempa A. "Wprowadzenie do WPF. 
+Tworzenie aplikacji WPF przy u¿yciu XAML i C#", Helion, Gliwice 2017
+***************************************************************************
+Rozdzia³ 8. Menu — aplikacja Przegl¹darka www
+***************************************************************************
+
+===========================================================================
+8.1 Kod XAML
+===========================================================================
+
+<Grid>
+    <!-- Definicja wierszy i kolumn dla panelu Grid-->
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <!-- Menu programu-->
+    <Menu Grid.Row="0" Grid.Column="0">
+        <MenuItem Header="Plik">
+            <MenuItem Header="Zapisz jako" Click="Zapisz_Click"/>
+            <MenuItem Header="Drukuj" Click="Tmp_Click"/>
+            <Separator/>
+            <MenuItem Header="Wyjœcie" Click="Exit_Click"/>
+        </MenuItem>
+        <MenuItem Header="Narzêdzia">
+            <MenuItem Header="Ramka" IsChecked="True" IsCheckable="True" Checked="RamkaOn_Click" Unchecked="RamkaOff_Click"/>
+            <Separator/>
+            <MenuItem Header="Ustawienia" Click="Tmp_Click"/>
+            <MenuItem Header="Rozmiar">
+                <MenuItem Header="Zwiêksz +" Click="Tmp_Click"/>
+                <MenuItem Header="Zmniejsz -" Click="Tmp_Click"/>
+            </MenuItem>
+            <Separator/>
+            <MenuItem Header="O programie" Click="OProgramie_Click"/>
+        </MenuItem>
+    </Menu>
+
+    <!-- Przegl¹darka -->
+    <DockPanel Grid.Row="1" Grid.Column="0">
+        <ToolBar DockPanel.Dock="Top">
+        <Button x:Name="btnWstecz" Content="Wstecz" Background="LightSteelBlue" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="55" Click="btnWstecz_Click"/>
+        <Button x:Name="btnDalej" Content="Dalej" Background="LightSteelBlue" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="55" Click="btnDalej_Click"/>
+        <Separator/>
+        <TextBox x:Name="txtAdres" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="http://" KeyUp="txtAdres_KeyUp" VerticalAlignment="Top" MinWidth="400"/>
+        <Button x:Name="btnWejdz" Content="WejdŸ" Background="LightSteelBlue" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="50" Click="btnWejdz_Click"/>
+    </ToolBar>
+    <Border x:Name="brdRamka" BorderThickness="3" BorderBrush="DarkCyan">
+        <WebBrowser x:Name="wbPrzegladarka" Navigating="wbPrzegladarka_Navigating" Navigated="wbPrzegladarka_Navigated" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    </Border>
+    </DockPanel>
+</Grid>
+
+===========================================================================
+8.2 Code-behind
+===========================================================================
+
+// W pliku MainWindow.xaml.cs nale¿y dodaæ dyrektywy using dla dwóch przestrzeni nazw:
+using System.Reflection;
+using System.IO
+
+// Metody obs³ugi zdarzeñ klikniêcia opcji Menu
+// ------------------------------------------------
+private void RamkaOn_Click(object sender, RoutedEventArgs e)   // W³¹czenie ramki
+{
+    if(brdRamka != null)
+        brdRamka.BorderThickness= new Thickness(3);
+}
+private void RamkaOff_Click(object sender, RoutedEventArgs e)  // Wy³¹czenie ramki
+{
+    if (brdRamka != null)
+        brdRamka.BorderThickness = new Thickness(0);
+}
+private void Zapisz_Click(object sender, RoutedEventArgs e)    // Zapisanie strony do pliku 
+{
+    Microsoft.Win32.SaveFileDialog dialog = new Microsoft.Win32.SaveFileDialog();
+    dialog.Filter = "WebPage|*.html";
+    dialog.DefaultExt = ".html";
+    dynamic doc = wbPrzegladarka.Document;
+    if (doc != null)
+    {
+        var htmlText = doc.documentElement.InnerHtml;
+        if (dialog.ShowDialog() == true && htmlText != null)
+        {
+            File.WriteAllText(dialog.FileName, htmlText);     // File wymaga using System.IO;
+        }
+    }
+}
+private void Tmp_Click(object sender, RoutedEventArgs e)  // Tymczasowa metoda dla niegotowych opcji
+{
+    MessageBox.Show("Opcja w budowie");
+}
+private void OProgramie_Click(object sender, RoutedEventArgs e)   // Informacje o programie
+{
+    MessageBox.Show("Prosta przegl¹darka www, Wersja 1.0, Helion 2017");
+}
+private void Exit_Click(object sender, RoutedEventArgs e)   // Wyjœcie  (zamkniêcie okna aplikacji)
+{
+    Close();
+}
+
+// Metody obs³ugi zdarzeñ dla kontrolek umieszczonych w ToolBar
+// ---------------------------------------------------------------
+private void btnWejdz_Click(object sender, RoutedEventArgs e)
+{
+    wbPrzegladarka.Navigate(txtAdres.Text);
+}
+private void btnWstecz_Click(object sender, RoutedEventArgs e)
+{
+    if (wbPrzegladarka.CanGoBack)
+        wbPrzegladarka.GoBack();
+}
+private void btnDalej_Click(object sender, RoutedEventArgs e)
+{
+    if (wbPrzegladarka.CanGoForward)
+        wbPrzegladarka.GoForward();
+}
+private void txtAdres_KeyUp(object sender, KeyEventArgs e)
+{
+    if (e.Key == Key.Enter)
+        wbPrzegladarka.Navigate(txtAdres.Text);
+}
+
+// Metody obs³ugi zdarzeñ dla kontrolki WebBrowser (Navigating i Navigated)
+// --------------------------------------------------------------------------
+private void wbPrzegladarka_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+{
+    txtAdres.Text = e.Uri.OriginalString;   // Aktualizacja pola tekstowego z adresem
+}
+private void wbPrzegladarka_Navigated(object sender, NavigationEventArgs e)
+{
+    HideScriptErrors(wbPrzegladarka, true);   // Wywo³anie metody ukrywaj¹cej b³êdy JavaScriptu
+}
+public void HideScriptErrors(WebBrowser wb, bool Hide)
+{
+    // Ukrycie b³êdów JavaScriptu, rozwi¹zanie ze strony MSDN "Suppress Script Errors in Windows.Controls.Webbrowser"
+    // Typ wyliczeniowy BindingFlags wymaga przestrzeni nazw using System.Reflection;
+    dynamic activeX = this.wbPrzegladarka.GetType().InvokeMember("ActiveXInstance",
+        BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+        null, this.wbPrzegladarka, new object[] { });
+    activeX.Silent = true;
+}
+
+===========================================================================
+8.4 Wskazówki do zadañ
+===========================================================================
+
+Wskazówki do zadania 8.1
+---------------------------------------------------------------------------
+<TextBox x:Name="txtAdres" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="http://" KeyUp="txtAdres_KeyUp" VerticalAlignment="Top" MinWidth="400">
+    <TextBox.ContextMenu>
+        <ContextMenu>
+            <MenuItem Command="ApplicationCommands.Cut"/>
+            <MenuItem Command="ApplicationCommands.Copy"/>
+            <MenuItem Command="ApplicationCommands.Paste"/>
+            <Separator/>
+            <MenuItem Header="Dodaj do ulubionych">
+                <MenuItem Header="Do folderu" Click="Tmp_Click"/>
+                <MenuItem Header="Do paska ulubionych" Click="Tmp_Click"/>
+            </MenuItem>
+        </ContextMenu>
+    </TextBox.ContextMenu>
+</TextBox>
+
+Wskazówki do zadania 8.2
+---------------------------------------------------------------------------
+<MenuItem Header="O programie" Click="OProgramie_Click">
+    <MenuItem.Icon>
+        <Image Source="Rysunki/logo.jpg" MaxHeight="20" MaxWidth="20"/>
+    </MenuItem.Icon>
+    <MenuItem.ToolTip>
+        Informacje o programie
+    </MenuItem.ToolTip>
+</MenuItem>
+
+Wskazówki do zadania 8.3
+---------------------------------------------------------------------------
+<TreeView>
+    <TreeViewItem Header="Spis treœci" IsExpanded="True">
+        <TreeViewItem Header="Wstêp" />
+        <TreeViewItem Header="Rozdzia³ 1" IsExpanded="True">
+            <TreeViewItem Header="Podrozdzia³ 1.1" />
+            <TreeViewItem Header="Podrozdzia³ 1.2" />
+        </TreeViewItem>
+        <TreeViewItem Header="Rozdzia³ 2" IsExpanded="True">
+            <TreeViewItem Header="Podrozdzia³ 2.1" />
+            <TreeViewItem Header="Podrozdzia³ 2.2" />
+        </TreeViewItem>
+        <TreeViewItem Header="Zakoñczenie"/>
+    </TreeViewItem>
+</TreeView>
+
+
+
+
+
+
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<ListaProduktow>
+  <Produkt>
+    <Symbol>O1-11</Symbol>
+    <Nazwa>ołówek</Nazwa>
+    <LiczbaSztuk>8</LiczbaSztuk>
+    <Magazyn>Katowice 1</Magazyn>
+  </Produkt>
+  <Produkt>
+    <Symbol>PW-20</Symbol>
+    <Nazwa>pióro wieczne</Nazwa>
+    <LiczbaSztuk>75</LiczbaSztuk>
+    <Magazyn>Katowice 2</Magazyn>
+  </Produkt>
+  <Produkt>
+    <Symbol>DZ-10</Symbol>
+    <Nazwa>długopis żelowy</Nazwa>
+    <LiczbaSztuk>1121</LiczbaSztuk>
+    <Magazyn>Katowice 1</Magazyn>
+  </Produkt>
+  <Produkt>
+    <Symbol>DZ-12</Symbol>
+    <Nazwa>długopis kulkowy</Nazwa>
+    <LiczbaSztuk>280</LiczbaSztuk>
+    <Magazyn>Katowice 2</Magazyn>
+  </Produkt>
+</ListaProduktow>
