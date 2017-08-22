@@ -1,0 +1,28 @@
+S¹ 3 etapy gita: Working Directory, Staging i Repo
+
+git init - inicjuje nowe Repo
+git status - sprawdza status plików w working directory i Staging
+git add file-name - dodaje file do Stage
+git diff - pokazuje ró¿nicê pomiêdzy WD a Staging
+git -m commit "message" - Commituje Stagea
+git log - sprawdza historie Commitów
+
+git checkout HEAD file-name - Discards changes in the WD.
+git reset HEAD file-name - Unstages file changes in the Staging.
+git reset SHA - resets previous commit in your commit history.
+
+git branch - sprawdza w którym Branchu jesteœmy
+git checkout branch-name - swapuje pomiedzy Branchami
+git merge branch-name - Merguje Brancha z Masterem
+git branch -d branch-name - usuwa Brancha - po zMergowaniu dobrze jest go usun¹æ
+
+* Wszystkie commity do mastera s¹ dodawane te¿ do branchy (?)
+* Merge conflict - wystêpuje jak siê chce zMergowaæ tê sam¹ linijkê, edytowan¹ w kilku branchach 
+		 - wystarczy wtedy przyjœæ do pliku txt i wybraæ która ma pozostaæ
+
+git clone repo-name local-name - klonuje projekt z Repo do nowego WD
+git remote -v - listuje gitowe projekty remote (origin i fetcha)
+git fetch - aktualizuje (?) WD do najnowszej wersji z Repo - tyle ¿e ta nowa wersja to nie jest nigdy Master, 
+	    a origin/master. ¯eby local i remote mastery by³y takie same trzeba je zmergowaæ
+git merge origin/master - Merguje to co w Fetchu z WD
+git push origin branch-name - pushuje brancha do origin remote

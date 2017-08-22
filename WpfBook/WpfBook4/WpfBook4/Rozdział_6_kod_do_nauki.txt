@@ -1,0 +1,267 @@
+Plik zawiera kody do nauki. Objaœnienia na temat, gdzie nale¿y umieœciæ poszczególne 
+fragmenty kodu zawarte s¹ w podrêczniku Kempa A. "Wprowadzenie do WPF. 
+Tworzenie aplikacji WPF przy u¿yciu XAML i C#", Helion, Gliwice 2017
+***************************************************************************
+Rozdzia³ 6. Wi¹zanie kolekcji danych — aplikacja Lista produktów
+***************************************************************************
+
+===========================================================================
+6.1 Kod XAML
+===========================================================================
+<Grid>
+    <ListView x:Name="lstProdukty">
+        <ListView.View>
+            <GridView>
+                <GridView.Columns>
+                    <GridViewColumn Header="Symbol" 
+                        DisplayMemberBinding="{Binding Symbol}"/>
+                    <GridViewColumn Header="Nazwa"
+                        DisplayMemberBinding="{Binding Nazwa}"/>
+                    <GridViewColumn Header="Liczba sztuk"
+                        DisplayMemberBinding="{Binding LiczbaSztuk}"/>
+                    <GridViewColumn Header="Magazyn"
+                        DisplayMemberBinding="{Binding Magazyn}"/>
+                </GridView.Columns>
+            </GridView>
+        </ListView.View>
+    </ListView>
+</Grid>
+   
+===========================================================================
+6.2 Definicja klasy Produkt i code-behind
+===========================================================================
+
+// Przestrzeñ nazw
+using System.Collections.ObjectModel;
+
+// Kod klasy Produkt umieszczony jest w podrozdziale 5.3.
+
+// Kod klasy MainWindow
+public partial class MainWindow : Window
+{
+    private ObservableCollection<Produkt> ListaProduktow = null;
+    public MainWindow()
+    {
+        InitializeComponent();
+        PrzygotujWiazanie();
+    }
+
+    private void PrzygotujWiazanie()
+    {
+        ListaProduktow = new ObservableCollection<Produkt>();  
+        ListaProduktow.Add(new Produkt("O1-11", "o³ówek", 8, "Katowice 1"));
+        ListaProduktow.Add(new Produkt("PW-20", "pióro wieczne", 75, "Katowice 2"));
+        ListaProduktow.Add(new Produkt("DZ-10", "d³ugopis ¿elowy", 1121, "Katowice 1"));
+        ListaProduktow.Add(new Produkt("DZ-12", "d³ugopis kulkowy", 280, "Katowice 2"));
+        lstProdukty.ItemsSource = ListaProduktow;
+    }
+}
+
+===========================================================================
+6.3 Sortowanie wykazu
+===========================================================================
+
+// Przestrzeñ nazw
+using System.ComponentModel;
+
+// Kod, jaki nale¿y umieœciæ na koñcu metody PrzygotujWiazanie 
+CollectionView widok = 
+    (CollectionView)CollectionViewSource.GetDefaultView(lstProdukty.ItemsSource);
+
+// Sortowanie wg magazynu
+widok.SortDescriptions.Add(new SortDescription("Magazyn", ListSortDirection.Ascending));
+// Sortowanie wg nazwy
+widok.SortDescriptions.Add(new SortDescription("Nazwa", ListSortDirection.Ascending));
+
+===========================================================================
+6.4 Formatowanie danych w wykazie
+===========================================================================
+
+<GridViewColumn Header="Liczba sztuk">
+    <GridViewColumn.CellTemplate>
+        <DataTemplate>
+            <TextBlock Text="{Binding LiczbaSztuk}" 
+                 FontSize="12" Foreground="Green" FontWeight="Bold"/>
+        </DataTemplate>
+    </GridViewColumn.CellTemplate>
+</GridViewColumn>
+
+===========================================================================
+6.5 Wyrównanie tekstu w kolumnie
+===========================================================================
+
+Pierwsza wersja TextBlock dla liczby sztuk:
+
+    <TextBlock Text="{Binding LiczbaSztuk}"  
+        FontSize="12" Foreground="Green" FontWeight="Bold" Background="LightGray"/>
+
+Ustawienie stylu:
+
+<Window.Resources>
+    <Style TargetType="ListViewItem">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+</Window.Resources>
+
+Druga wersja TextBlock dla liczby sztuk:
+
+    <TextBlock Text="{Binding LiczbaSztuk}" FontSize="12" Foreground="Green" FontWeight="Bold" Background ="LightGray" TextAlignment="Right"/>
+
+===========================================================================
+6.6 Filtrowanie danych
+===========================================================================
+
+Kod XAML:
+
+<Grid.RowDefinitions>
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="*" />
+</Grid.RowDefinitions>
+<Grid.ColumnDefinitions>
+    <ColumnDefinition Width="Auto" />
+    <ColumnDefinition Width="*" />
+</Grid.ColumnDefinitions>
+<Label Content="Filtruj wg nazwy produktu:" Grid.Row="0" Grid.Column="0" Margin="5" />
+<TextBox Name="txtFilter" Grid.Row="0" Grid.Column="1" Margin="5" TextChanged="txtFilter_TextChanged" />
+
+Nowa wersja definicji ListView:
+
+<ListView x:Name="lstProdukty" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+
+Kod C#:
+
+// Dodaæ na koñcu metody PrzygotujWiazanie 
+widok.Filter = FiltrUzytkownika;   // Przypisanie delegata do w³aœciwoœci filtra
+
+// Dopisaæ do klasy MainWindow definicje dwóch metod:
+private bool FiltrUzytkownika(object item)
+{
+    if (String.IsNullOrEmpty(txtFilter.Text))
+        return true;
+    else
+        return ((item as Produkt).Nazwa.IndexOf(txtFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+}
+private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+{
+    CollectionViewSource.GetDefaultView(lstProdukty.ItemsSource).Refresh();
+}
+
+===========================================================================
+6.7 Edycja danych w nowym oknie
+===========================================================================
+
+// Obs³uga zdarzenia MouseDoubleClick dla listView
+private void lstProdukty_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+{
+    Window1 okno1 = new Window1(this);
+    okno1.Show();         // wariant z oknem dialogowym: okno1.ShowDialog();
+}
+
+// W code-behind dla nowego okna (w pliku Window1.xaml.cs) dodaj przestrzeñ nazw:
+using System.ComponentModel;
+
+// Kod klasy Window1
+public partial class Window1 : Window
+{
+    private MainWindow mainWindow = null;      // Obiekt dla okna g³ównego
+
+    public Window1()
+    {
+        InitializeComponent();
+    }
+    // Prze³adowana (przeci¹¿ona) wersja konstruktora z obiektem dla g³ównego okna jako argumentem 
+    public Window1(MainWindow mainWin)
+    {
+        InitializeComponent();
+        mainWindow = mainWin;
+        PrzygotujWiazanie();
+    }
+    private void PrzygotujWiazanie()
+    {
+        Produkt produktZListy = mainWindow.lstProdukty.SelectedItem as Produkt;
+        if (produktZListy != null)
+        {
+            gridProdukt.DataContext = produktZListy;   // Wybrany produkt z listy
+        }
+    }
+    private void btnPotwierdz_Click(object sender, RoutedEventArgs e)
+    {
+        this.Close();      // Zamkniêcie bie¿¹cego okna
+    }
+} 
+
+===========================================================================
+6.9 Wskazówki do zadañ
+===========================================================================
+
+Wskazówki do zadania 6.1
+---------------------------------------------------------------------------
+
+// Kod metody obs³uguj¹cej zdarzenie klikniêcia przycisku Usuñ
+
+        private void btnUsun_Click(object sender, RoutedEventArgs e)
+        {
+            Produkt produktZListy = lstProdukty.SelectedItem as Produkt;
+            if (produktZListy != null)
+            {
+                MessageBoxResult odpowiedz = MessageBox.Show("Czy wykasowaæ produkt: " + 
+                    produktZListy.ToString() +"?", "Pytanie", MessageBoxButton.YesNo, 
+                    MessageBoxImage.Question);
+                if (odpowiedz == MessageBoxResult.Yes)
+                {
+                    ListaProduktow.Remove(produktZListy);                // usuwamy produkt z listy (kolekcji)
+                }
+            }
+        }
+
+Wskazówki do zadania 6.2
+---------------------------------------------------------------------------
+
+// Nowa wersja konstruktora klasy Window1
+public Window1(MainWindow mainWin, bool czyNowy=false)
+{
+    InitializeComponent();
+    mainWindow = mainWin;
+    czyNowyProdukt = czyNowy;
+    PrzygotujWiazanie();
+}
+
+// Kod, jaki nale¿y umieœciæ w metodzie PrzygotujWiazanie dla nowego produktu (gdy czyNowyProdukt ma wartoœc false)
+    nowyProdukt = new Produkt("AA-00", "", 0, "");
+    gridProdukt.DataContext = nowyProdukt;
+
+
+// Kod, jaki nale¿y dodaæ do metody dla przycisku PotwierdŸ
+   mainWindow.ListaProduktow.Add(nowyProdukt);
+
+// Umieœæ w panelu w oknie g³ównym przycisk Dodaj. W klasie MainWindow nale¿y wykonaæ obs³ugê przycisku Dodaj, 
+// wywo³uj¹c konstruktor z klasy Window1 z dwoma argumentami
+   Window1 okno1 = new Window1(this, true);
+   okno1.ShowDialog();
+
+Wskazówki do zadania 6.3
+---------------------------------------------------------------------------
+
+Szkic kodu XAML:
+
+<DockPanel LastChildFill="True">
+    <Grid x:Name="gridProdukt" Margin="5" DataContext="{Binding SelectedItem, ElementName=lstProdukty}">
+        <!-- Tu ma byæ panel Grid, jaki jest w oknie Window1-->
+    </Grid>
+    <Grid Margin="5">
+        <!-- Tu ma byæ panel Grid z ListView -->
+    </Grid>
+</DockPanel>
+
+Kod C#:
+
+// Kod metody obs³uguj¹cej zdarzenie klikniêcia przycisku Dodaj
+private void btnDodaj_Click(object sender, RoutedEventArgs e)
+{
+    nowyProdukt = new Produkt("AA-00", "", 0, "");
+    ListaProduktow.Add(nowyProdukt);
+}
+
+
+
+
