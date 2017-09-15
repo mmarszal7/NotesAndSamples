@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{B8146203-0F75-4AD0-B6FB-3BF67C8790B2}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegEx - in progress", "RegularExpresions\RegEx - in progress.csproj", "{12857EC8-0087-4C90-82E6-322D7BC4D8D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlToXAML", "HtmlToXAML\HtmlToXAML.csproj", "{0E6D2F45-CBC6-4D2B-BC66-06EA9C79ECE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events", "Events\Events.csproj", "{1ADCA939-4546-48FC-9294-C2073E3294FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,8 +71,15 @@ Global
 		{0E6D2F45-CBC6-4D2B-BC66-06EA9C79ECE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E6D2F45-CBC6-4D2B-BC66-06EA9C79ECE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E6D2F45-CBC6-4D2B-BC66-06EA9C79ECE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ADCA939-4546-48FC-9294-C2073E3294FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ADCA939-4546-48FC-9294-C2073E3294FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ADCA939-4546-48FC-9294-C2073E3294FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ADCA939-4546-48FC-9294-C2073E3294FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F1DA245-7D7D-4A09-8266-C7DA6F9B9767}
 	EndGlobalSection
 EndGlobal

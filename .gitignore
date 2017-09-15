@@ -1,5 +1,4 @@
 /**/bin
 /**/obj
 /**/packages
-/**/*.suo
-/WpfSqlite/.vs/WpfSqlite/v15/*.suo
+/**/.vs
