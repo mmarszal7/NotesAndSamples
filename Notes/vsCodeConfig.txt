@@ -1,0 +1,40 @@
+{
+    "workbench.colorTheme": "Visual Studio Light",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.editor.enablePreview": false,
+    "files.autoSave": "onWindowChange",
+    "window.zoomLevel": 1,
+    "php.validate.executablePath": "C:/xampp/php/php.exe",
+	"python.pythonPath": "C:/Anaconda3/python",
+    "python.linting.pylintArgs": [
+        "--errors-only"
+    ],
+    "vsicons.projectDetection.autoReload": true,
+    "editor.tokenColorCustomizations":{
+        "textMateRules": [
+            {
+                "name": "Functions",
+                "scope": [
+                    "entity.name.function",
+                    "support.function"
+                ],
+                "settings": {
+                    "fontStyle": "bold",
+                    "foreground": "#AA3731"
+                }
+            },
+            {
+                "name": "Classes",
+                "scope": [
+                    "entity.name.type",
+                    "entity.other.inherited-class",
+                    "support.class"
+                ],
+                "settings": {
+                    "fontStyle": "bold",
+                    "foreground": "#7A3E9D"
+                }
+            }
+        ]
+    }
+}
