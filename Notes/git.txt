@@ -1,28 +1,33 @@
-S¹ 3 etapy gita: Working Directory, Staging i Repo
+SÄ… 3 etapy gita: Working Directory, Staging i Repo
 
 git init - inicjuje nowe Repo
-git status - sprawdza status plików w working directory i Staging
+git status - sprawdza status plikÃ³w w working directory i Staging
 git add file-name - dodaje file do Stage
-git diff - pokazuje ró¿nicê pomiêdzy WD a Staging
+git diff - pokazuje rÃ³Å¼nicÄ™ pomiÄ™dzy WD a Staging
 git -m commit "message" - Commituje Stagea
-git log - sprawdza historie Commitów
+git log - sprawdza historie CommitÃ³w
 
 git checkout HEAD file-name - Discards changes in the WD.
 git reset HEAD file-name - Unstages file changes in the Staging.
 git reset SHA - resets previous commit in your commit history.
 
-git branch - sprawdza w którym Branchu jesteœmy
+git branch - sprawdza w ktÃ³rym Branchu jesteÅ›my
 git checkout branch-name - swapuje pomiedzy Branchami
 git merge branch-name - Merguje Brancha z Masterem
-git branch -d branch-name - usuwa Brancha - po zMergowaniu dobrze jest go usun¹æ
+git branch -d branch-name - usuwa Brancha - po zMergowaniu dobrze jest go usunÄ…Ä‡
 
-* Wszystkie commity do mastera s¹ dodawane te¿ do branchy (?)
-* Merge conflict - wystêpuje jak siê chce zMergowaæ tê sam¹ linijkê, edytowan¹ w kilku branchach 
-		 - wystarczy wtedy przyjœæ do pliku txt i wybraæ która ma pozostaæ
+* Wszystkie commity do mastera sÄ… dodawane teÅ¼ do branchy (?)
+* Merge conflict - wystÄ™puje jak siÄ™ chce zMergowaÄ‡ tÄ™ samÄ… linijkÄ™, edytowanÄ… w kilku branchach 
+		 - wystarczy wtedy przyjÅ›Ä‡ do pliku txt i wybraÄ‡ ktÃ³ra ma pozostaÄ‡
 
 git clone repo-name local-name - klonuje projekt z Repo do nowego WD
 git remote -v - listuje gitowe projekty remote (origin i fetcha)
-git fetch - aktualizuje (?) WD do najnowszej wersji z Repo - tyle ¿e ta nowa wersja to nie jest nigdy Master, 
-	    a origin/master. ¯eby local i remote mastery by³y takie same trzeba je zmergowaæ
+git fetch - aktualizuje (?) WD do najnowszej wersji z Repo - tyle Å¼e ta nowa wersja to nie jest nigdy Master, 
+	    a origin/master. Å»eby local i remote mastery byÅ‚y takie same trzeba je zmergowaÄ‡
 git merge origin/master - Merguje to co w Fetchu z WD
 git push origin branch-name - pushuje brancha do origin remote
+
+git rebase -i --root
+exec git commit --amend --author="mmarszal7 <mati.m7@o2.pl>" -C HEAD
+exec git commit --amend --date="Mon Jan 01 00:00 2017 +0100" -C HEAD
+git push origin master --force
