@@ -1,0 +1,26 @@
+<main class="login">
+    <form #f="ngForm" (ngSubmit)="login()" fxLayout="column">
+        <mat-form-field>
+            <input matInput type="text" name="username" [(ngModel)]="username" 
+                                    placeholder="Username" 
+                                    [formControl]="emailFormControl" 
+                                    [errorStateMatcher]="matcher">
+            <mat-error *ngIf="emailFormControl.hasError('required')">
+                Login is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" name="passowrd"  [(ngModel)]="password" 
+                                    placeholder="Password"  
+                                    [type]="hide ? 'password' : 'text'" 
+                                    [formControl]="passowrdFormControl" 
+                                    [errorStateMatcher]="matcher">
+
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            <mat-error *ngIf="passowrdFormControl.hasError('required')">
+                Password is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="warn" class="submit-btn" type="submit">Login</button>
+    </form>
+</main>
