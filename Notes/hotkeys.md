@@ -7,6 +7,11 @@
 
 
 # 2. Total Commander:
+Website with hotkeys:
+    https://shortcutworld.com/Total-Commander/win/Total-Commander_8_Shortcuts
+    
+#### General:
+* Shift+F4 - create and edit new file
 
 #### Tabs:
 * Tab - jump between tabs
@@ -16,6 +21,7 @@
 * CTRL+ALT+Letter(s)	Jump to a file/location
 * Ctrl+ ArrowUp - create new tab
 * Ctrl+Tab - next tab
+* Ctrl+<--/--> - jump to command line
 
 #### File sorting:
 * Ctrl+F3 - Sort by name
