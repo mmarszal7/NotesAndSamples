@@ -21,6 +21,12 @@ $ npm install --save @angular/material @angular/cdk
 $ npm install --save @angular/animations
 ```
 
+## Using static Angular files in ASP.NET Core
+```
+app.UseDefaultFiles();
+app.UseStaticFiles();
+```
+
 # [AngularJS]
 
 ## Listing packages & installing AngularJS:
