@@ -22,6 +22,7 @@ apt-get upgrade - aktualizacja paczek
 * touch - tworzenie i edycja właściwości plików
 * chmod 777 filename - edycja uprawnień plików
 * stat -c %a file - sprawdzenie jakie uprawnienia są przypisane do pliku
+* unzip file.zip -d destination_folder - rozpakowywanie
 
 #### b) processes
 * free -m - listuje statystyki ramu w MB
@@ -43,6 +44,7 @@ apt-get upgrade - aktualizacja paczek
 ---
 ## 2. Packages:
 - zsh - shell CLI
+- unzip
 - htop - task manager
 - tmux - split screen
 - vim/nano/emact - edytory tekstu
