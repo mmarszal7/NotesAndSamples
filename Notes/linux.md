@@ -20,7 +20,8 @@ apt-get upgrade - aktualizacja paczek
 * bash/zsh/etc. - zmiana shella
 * mkdir - tworzenie katalogów
 * touch - tworzenie i edycja właściwości plików
-* chmod - edycja uprawnień plików
+* chmod 777 filename - edycja uprawnień plików
+* stat -c %a file - sprawdzenie jakie uprawnienia są przypisane do pliku
 
 #### b) processes
 * free -m - listuje statystyki ramu w MB
