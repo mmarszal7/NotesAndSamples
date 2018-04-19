@@ -108,7 +108,59 @@ And configure it:
     sudo ufw status
 
 ---
-## 4. Linux Hello worlds:
+## 4. Nginx:
+**Installation:**
+```bash
+sudo apt-get install nginx
+sudo /etc/init.d/nginx start #restart / stop
+rm /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/mysite_nginx.conf /etc/nginx/sites-enabled/default
+```
+**Django config file (/etc/nginx/uwsgi_params):**
+
+    uwsgi_param  QUERY_STRING       $query_string;
+    uwsgi_param  REQUEST_METHOD     $request_method;
+    uwsgi_param  CONTENT_TYPE       $content_type;
+    uwsgi_param  CONTENT_LENGTH     $content_length;
+    
+    uwsgi_param  REQUEST_URI        $request_uri;
+    uwsgi_param  PATH_INFO          $document_uri;
+    uwsgi_param  DOCUMENT_ROOT      $document_root;
+    uwsgi_param  SERVER_PROTOCOL    $server_protocol;
+    uwsgi_param  REQUEST_SCHEME     $scheme;
+    uwsgi_param  HTTPS              $https if_not_empty;
+    
+    uwsgi_param  REMOTE_ADDR        $remote_addr;
+    uwsgi_param  REMOTE_PORT        $remote_port;
+    uwsgi_param  SERVER_PORT        $server_port;
+    uwsgi_param  SERVER_NAME        $server_name;
+
+**Nginx configuration file (/etc/nginx/sites-available/):**
+
+    upstream django {
+        server server 127.0.0.1:8001;
+    }
+    
+    server {
+    	listen      80; 
+    	server_name _;
+    	charset     utf-8;
+    	
+    	client_max_body_size 75M;   # adjust to taste
+    	
+    	location /api {
+    		uwsgi_pass  django;
+    		include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed ^
+    	} 
+    	
+    	location / { 
+    		root /home/user/proj/build; # your Django project's static files - amend as required
+    		try_files $uri $uri/ /index.html;
+    	}   
+    }
+
+---
+## 5. Linux Hello worlds:
 ##### a) C++:
 Build-essential - gcc/g++ - c/c++ compilers and libs
     
@@ -140,7 +192,7 @@ Instalacja ze strony Microsoftu (update paczek, installacja itp.)
     dotnet webapi.dll
 
 ---
-## 5. Git / Docker
+## 6. Git / Docker
 #### a) Git:
 **Naming**: Working Directory, Staging and Remote
 #### Basic
@@ -174,11 +226,11 @@ Instalacja ze strony Microsoftu (update paczek, installacja itp.)
 #### b) Docker:
 *
 ---
-## 6. Linux - security
+## 7. Linux - security
 - 
 
 ---
-## 7. Jenkins installation:
+## 8. Jenkins installation:
 #### a) Installation (add to packages, update and install):
     wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | sudo apt-key add -
     echo deb https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
