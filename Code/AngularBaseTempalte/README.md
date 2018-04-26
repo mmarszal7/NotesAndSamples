@@ -26,6 +26,12 @@ $ npm install --save @angular/animations
 $ ng build --prod
 ```
 
+## Using static Angular files in ASP.NET Core
+```
+app.UseDefaultFiles();
+app.UseStaticFiles();
+```
+
 # [AngularJS]
 
 ## Listing packages & installing AngularJS:
