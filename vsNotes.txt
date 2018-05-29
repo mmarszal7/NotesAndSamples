@@ -1,3 +1,18 @@
+VS extensions:
+- Hot Commands
+- Hot Settings
+- Hot Tips
+- Ctrl + Click Go to definition
+- Custom Document Well			
+- Solution Error Visualizer
+ 
+VS Code extensions:
+- Auto Rename Tag
+- Auto Close Tag
+- vscode-icons
+
+VS Code config:
+
 {
     "workbench.colorTheme": "Visual Studio Light",
     "workbench.iconTheme": "vscode-icons",
