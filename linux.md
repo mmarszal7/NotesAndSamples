@@ -192,40 +192,6 @@ Instalacja ze strony Microsoftu (update paczek, installacja itp.)
     dotnet webapi.dll
 
 ---
-## 6. Git / Docker
-#### a) Git:
-**Naming**: Working Directory, Staging and Remote
-#### Basic
-    git init - inicjuje nowe repo
-    git -m commit "message"
-    git log - sprawdza historie commitów
-    git status - sprawdza status plików w working directory i Staging
-    git add file-name - dodaje file do Stage
-    git diff - pokazuje różnicę pomiędzy Working Directory a Staging
-#### Revert, discard, reset
-    git checkout HEAD file-name - discards changes in the WD.
-    git reset HEAD file-name - unstages file changes in the Staging.
-    git reset SHA - resets previous commit in your commit history.
-#### Branche
-    git branch - sprawdza w którym branchu jesteśmy
-    git checkout branch-name - swapuje pomiedzy branchami
-    git merge branch-name - merguje brancha z masterem
-    git branch -d branch-name - usuwa brancha
-#### Klonowanie i pulle
-    git clone repo-name local-name - klonuje projekt z Remote
-    git remote -v - listuje gitowe projekty remote
-    git fetch - aktualizuje Working Directory z Remotea
-    git merge origin/master - merguje to co w fetchu z Working Directory
-    git push origin branch-name - pushuje brancha do origin remote
-#### Fixy
-    git rebase -i --root
-    exec git commit --amend --author="nick <mail@mail.pl>" -C HEAD
-    exec git commit --amend --date="Mon Jan 01 00:00 2017 +0100" -C HEAD
-    git push origin master --force
-    
-#### b) Docker:
-*
----
 ## 7. Linux - security
 - 
 
