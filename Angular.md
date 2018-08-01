@@ -1,28 +1,21 @@
-# [Angular]CLI project with some basic components
+# AngularCLI
 
 ## Global update:
-```sh
+```
 $ npm uninstall -g @angular/cli
 $ npm cache clean
 $ npm install -g @angular/cli@latest
 ```
 
 ## Local update:
-```sh
+```
 $ rmdir /S/Q node_modules dist
 $ npm install --save-dev @angular/cli@latest
 $ npm install
 ```
 
-## Installing packages:
-```npm
-$ npm install @angular/flex-layout --save
-$ npm install --save @angular/material @angular/cdk
-$ npm install --save @angular/animations
-```
-
 ## Building
-```npm
+```
 $ ng build --prod
 ```
 
@@ -32,27 +25,6 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 ```
 
-# [AngularJS]
-
-## Listing packages & installing AngularJS:
-```npm
-$ npm list -g --depth=0
-$ npm install angular@1.6.6
-```
-
-## Installing typings for AngularJS (without --global if not working):
-```
-$ npm install -g typings
-$ typings install dt~angular --global --save
-```
-
-## Installing packages:
-```
-$ npm install -g bower
-$ bower install bootstrap
-$ bower install jquery
-$ bower init                    // creating bower.json
-```
 
 ## AngularCLI generate commands:
 Scaffold  | Usage
@@ -67,6 +39,40 @@ Scaffold  | Usage
 [Enum](https://github.com/angular/angular-cli/wiki/generate-enum)           | `ng g enum my-new-enum`
 [Module](https://github.com/angular/angular-cli/wiki/generate-module)       | `ng g module my-module`
 
+# TypeScript:
+#### Installation:
+```
+npm install typescript  --save-dev
+npm init 	// package.json file
+tsc --init 	// tsconfig.ts file
+```
 
-[Angular]: <https://angular.io>
-[AngularJS]: <https://angularjs.org/>
+#### Console app:
+```
+npm init 
+touch app.ts
+tsc app.ts
+node app.js
+```
+
+#### Web app:
+Add this to package.json:
+```
+"scripts": {
+    "tsc-watch": "tsc --watch",
+    "lite": "lite-server --baseDir ./src",
+    "start": "concurrently \"npm run tsc-watch\" \"npm run lite\""
+},
+```
+
+Install dependencies and create project:
+```
+npm init 
+npm install typescript lite-server concurrently --save
+// concurrently - allows you to run multiple services concurrently (eg. server and tsc watch)
+// install other optional packages (npm install jquery bootstrap rxjs moment --save)
+
+touch src/app.ts
+touch src/index.html
+npm start
+```

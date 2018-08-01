@@ -1,9 +1,0 @@
-<menu fxLayout="column" fxLayoutAlign="start start">
-    <mat-list>
-        <mat-list-item [routerLink]="[menuItem.url]" *ngFor="let menuItem of menuItems">
-            <img fxFlex="20" matListAvatar src="{{menuItem.icon}}">
-            <span fxFlex="50" fxFlexOffset="10"><b> {{menuItem.text}} </b></span>
-            <mat-icon fxFlex="20" fxFlexAlign="end center" svgIcon="arrow"></mat-icon>
-        </mat-list-item>
-    </mat-list>
-</menu>
