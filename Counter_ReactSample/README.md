@@ -3,30 +3,31 @@
 [ReactJS](https://reactjs.org/docs/introducing-jsx.html)
 
 ## What is React:
-React is build of the **components** (component architecture is just like in Angular)
-React component just a js class which is build of **state** and **render method**
-Output of render method is a js object (virtual DOMs) that maps to DOM 
-When component state is changed React renders new virtual DOM object
-Then it compares new virtuial DOM object with real DOM and try to keep both in sync
-In React we no longer works on real DOMs, we work on **cheap** virtual DOMs
-That is why that library is called React, it reacts to state changes and updates the DOM
+React is build of the **components** (component architecture is just like in Angular).<br>
+React component just a js class which is build of **state** and **render method**.<br>
+Output of render method is a js object (virtual DOMs) that maps to DOM. <br>
+When component state is changed React renders new virtual DOM object.<br>
+Then it compares new virtuial DOM object with real DOM and try to keep both in sync.<br>
+In React we no longer works on real DOMs, we work on **cheap** virtual DOMs.<br>
+That is why that library is called React, it reacts to state changes and updates the DOM.
 
 ## Angular vs React:
-React is just a library with component architecture (like Angular)
-To make some http requests or routing we need additional js libraries for that
+React is just a library with component architecture (like Angular).<br>
+To make some http requests or routing we need additional js libraries for that.
 
 ## Start up:
+```
 npm i -g create-react-app
 create-react-app name
-^ this installs lightweight server, webpack?, babel and react libs (react, react-dom, react-scripts...)
-
+// ^ this installs lightweight server, webpack?, babel and react libs (react, react-dom, react-scripts...)
+```
 
 ## Basics:
 JSX - JavaScript XML - html js file (e.g in render method)<br>
-babel - js compiler used i.a. for converting JSX to js (try at babeljs.io/repl)<br>
+babel - js compiler used i.a. for converting JSX to js (try at babeljs.io/repl)<br><br>
 Starting point of the app is a src/index.js file where you bootstrap App.js to root component (defined in public/index.html)
 ReactDOM.render(<App />, document.getElementById('root'));<br>
-imports like bootstrap should be added in index.js<br>
+Imports like bootstrap should be added in index.js<br>
 Because Component.render() returns React.createElement('') you cannot return something like this: ```<h1></h1><button></button>```, it has to be one element!<br> Solution to this is to wrap both elements into ```<div>``` or React.Fragment>
 	
 	
@@ -34,23 +35,23 @@ Why we should use '()' after return (like 'return ()'):
 ```
 // because JS interprets:
 return 
-	<div></div>
+  <div></div>
 	
 // like this:
 return ;
-	<div></div>
+  <div></div>
 	
 // so we should write:
 return (
-	<div></div>
+  <div></div>
 	);
 ```
 
 Because React reacts to changed (diffs) every time you are using list of items you have to add unique index to it.
 
-Functions in Components does not have access to 'this' because they are not called with object: obj.method()
-	They are called as stand-alone functions which in strict-mode results in undefined (without strict-mode calling this in stand-alone functions returns window object)
-	To solve this problem u can use bind() method in constructor like: 
+Functions in Components does not have access to 'this' because they are not called with object: obj.method()<br>
+They are called as stand-alone functions which in strict-mode results in undefined (without strict-mode calling this in stand-alone functions returns window object)<br>
+To solve this problem u can use bind() method in constructor like: 
 ```
 constructor(){
     super();
@@ -135,8 +136,8 @@ npm run build
 ## TypeScript integration:
 
 To wire up TypeScript with React we need to:
-2) use create-react-app my-app --scripts-version=react-scripts-ts
-1) use webpack - "Webpack is a tool that will bundle your code and optionally all of its dependencies into a single .js file."
+1) use create-react-app my-app --scripts-version=react-scripts-ts
+2) use webpack - "Webpack is a tool that will bundle your code and optionally all of its dependencies into a single .js file."
 ```
 npm install -g webpack
 npm install --save @types/react @types/react-dom
