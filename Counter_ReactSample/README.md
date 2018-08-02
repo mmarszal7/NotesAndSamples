@@ -16,12 +16,9 @@ React is just a library with component architecture (like Angular)
 To make some http requests or routing we need additional js libraries for that
 
 ## Start up:
-cli tool: npm i -g create-react-app
-//npm install -g create-react-native-app
-vs code extensions: Simple React Snippets
-project init: create-react-app name
-//create-react-app my-app --scripts-version=react-scripts-ts
-^ this installs lightweight-server, webpack, babel and react libs (react, react-dom, react-scripts...)
+npm i -g create-react-app
+create-react-app name
+^ this installs lightweight server, webpack?, babel and react libs (react, react-dom, react-scripts...)
 
 
 ## Basics:
@@ -135,12 +132,20 @@ const App = () => (
 npm run build
 ```
 
+## TypeScript integration:
+
+To wire up TypeScript with React we need to:
+2) use create-react-app my-app --scripts-version=react-scripts-ts
+1) use webpack - "Webpack is a tool that will bundle your code and optionally all of its dependencies into a single .js file."
+```
+npm install -g webpack
+npm install --save @types/react @types/react-dom
+npm install --save-dev typescript awesome-typescript-loader source-map-loader
+```
 ## ToDo:
 - HTTP - fetch
 - redux
 - react-native
-- typescript
-
 
 ## Extensions:
 - Chrome: React Developer Tools
