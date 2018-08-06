@@ -119,6 +119,7 @@ class Pokemon
     "window.zoomLevel": 0.6,
     "terminal.integrated.fontSize": 12,
     "editor.formatOnSave": true,
+    "explorer.autoReveal": false,
     
     "javascript.implicitProjectConfig.experimentalDecorators": true,
     "typescript.updateImportsOnFileMove.enabled": "always",
