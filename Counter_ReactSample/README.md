@@ -161,18 +161,20 @@ npm install --save-dev typescript awesome-typescript-loader source-map-loader
 
 1.  Install redux:
     ```
-    npm install --save redux react-redux redux-devtools
+    npm install --save redux react-redux 
+    npm install --save-dev redux-devtools
     // for TypeScript
     npm install --save @types/react-redux
     ```
 2.  Create store:
     ```
-    const initialState = {};
-    const middleware = [];
     const store = createStore(
         rootReducer,
         initialState,
-        applyMiddleware(...middleware)
+        compose(
+            applyMiddleware(...middleware),
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        )
     );
     ```
 3.  Add Provider component:
@@ -191,17 +193,50 @@ npm install --save-dev typescript awesome-typescript-loader source-map-loader
 4.  Create rootReducer in ./reducers/index.tsx:
     ```
     export default combineReducers({
-        counter: counterReducer;
+        counterReducer;
     });
     ```
+5. Add reducer and action:
+    - Reducer
+    ```
+    const counterReducer = (state = initialCountersState, action) => {
+        switch (action.type) {
+            case INCREMENT:
+            return {
+                ...state,
+            }
+            ...
+        }
+    }
+    ```
+    - Action
+    ```
+    export const INCREMENT = 'INCREMENT';
 
-## ToDo:
+    export const incrementCounter = id => ({
+        type: 'INCREMENT',
+        id
+    })
+    ```
+6. Example of dispatching actions or accessing state
+    ```
+    let Counters = ({ counters, dispatch }) => ( 
+        
+        ...someJSX...
+        <button onClick={() => dispatch(resetCounters())}></button>
+    )
 
-- HTTP - fetch
-- redux
-- react-native
+    // Accessing state
+    const mapStateToProps = state => ({
+        counters: state.counterReducer.counters,
+    });
+
+    export default connect(mapStateToProps)(Counters);
+    ``` 
 
 ## Extensions:
 
-- Chrome: React Developer Tools
-- VS Code: Simple React Snippets - imrc - import react class<br> - cc - create class
+- Chrome: React Developer Tools (see ^ Redux point 2.)
+- VS Code: Simple React Snippets 
+    - imrc - import react class<br> 
+        - cc - create class

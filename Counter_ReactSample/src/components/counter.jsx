@@ -1,31 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
+import { incrementCounter, decrementCounter, deteleCounter } from '../actions';
 
-export default class Counter extends Component {
-    state = {
-        count: 0,
-        hidden: false
-    };
-
-    render() {
-        return (
-            <div className={this.state.hidden ? 'd-none mt-2' : 'mt-2'}>
-                <span>Counter: {this.state.count}</span>
-                <button className="btn btn-primary ml-2" onClick={this.handleIncrement}>+</button>
-                <button className="btn btn-primary ml-2" onClick={this.handleDecrement}>-</button>
-                <button className="btn btn-warning ml-2" onClick={this.handleDelete}>Delete</button>
-            </div>
-        );
-    }
-
-    handleIncrement = () => {
-        this.setState({ count: this.state.count + 1 });
-    }
-
-    handleDecrement = () => {
-        this.setState({ count: this.state.count - 1 });
-    }
-
-    handleDelete = () => {
-        this.setState({ hidden: true });
-    }
+const Counter = ({ id, value, dispatch }) => {
+    return (
+        <div className={'mt-2'}>
+            <span>Counter: {value}</span>
+            <button className="btn btn-primary ml-2" onClick={() => dispatch(incrementCounter(id))}>+</button>
+            <button className="btn btn-primary ml-2" onClick={() => dispatch(decrementCounter(id))}>-</button>
+            <button className="btn btn-warning ml-2" onClick={() => dispatch(deteleCounter(id))}>Delete</button>
+        </div>
+    );
 }
+
+export default connect()(Counter);
+
