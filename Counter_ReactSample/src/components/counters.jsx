@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Counter from './counter';
-import { resetCounters, addCounter } from '../actions';
+import { resetCounters, addCounter } from '../actions/counter';
 
-let Counters = ({ counters, dispatch }) => (
-
+const Counters = ({ counters, dispatch }) => (
     <div>
         <button onClick={() => dispatch(resetCounters())}>Reset</button>
         {
