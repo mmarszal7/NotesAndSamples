@@ -4,16 +4,16 @@ import { fetchArticles } from '../actions/placeholder'
 
 const Placeholder = ({ articles, dispatch }) => (
     <div>
-        Placeholder
+        <h1 className="mb-3">Placeholder</h1>
         {
-            articles.map(article =>
-                <div key={article.id}>
+            articles.splice(0, 10).map(article =>
+                <div className="mb-3" key={article.id}>
                     <h3>{article.title}</h3>
                     <p>{article.body}</p>
                 </div>
             )
         }
-        <button className="btn btn-primary ml-2" onClick={() => dispatch(fetchArticles())}>Fetch articles</button>
+        <button className="btn btn-primary" onClick={() => dispatch(fetchArticles())}>Fetch articles</button>
     </div>
 )
 

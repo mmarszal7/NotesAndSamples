@@ -5,7 +5,7 @@ import { resetCounters, addCounter } from '../actions/counter';
 
 const Counters = ({ counters, dispatch }) => (
     <div>
-        <button onClick={() => dispatch(resetCounters())}>Reset</button>
+        <h1>Counter</h1>
         {
             counters.map(counter =>
                 <Counter
@@ -15,7 +15,8 @@ const Counters = ({ counters, dispatch }) => (
                 />
             )
         }
-        <button onClick={() => dispatch(addCounter())}>Add new Counter</button>
+        <button className="btn btn-primary mt-2" onClick={() => dispatch(addCounter())}>Add new Counter</button>
+        <button className="btn btn-primary mt-2 ml-2" onClick={() => dispatch(resetCounters())}>Reset</button>
     </div>
 );
 
