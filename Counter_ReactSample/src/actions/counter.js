@@ -1,32 +1,32 @@
 export const INCREMENT = 'INCREMENT';
 
+export const ActionTypes = {
+    INCREMENT: 'INCREMENT',
+    DECREMENT: 'DECREMENT',
+    RESET_COUNTERS: 'RESET_COUNTERS',
+    ADD_COUNTER: 'ADD_COUNTER',
+    DELETE_COUNTER: 'DELETE_COUNTER',
+}
+
 export const incrementCounter = id => ({
-    type: 'INCREMENT',
+    type: ActionTypes.INCREMENT,
     id
 })
-
-export const DECREMENT = 'DECREMENT';
 
 export const decrementCounter = id => ({
-    type: 'DECREMENT',
+    type: ActionTypes.DECREMENT,
     id
 })
 
-export const RESET_COUNTERS = 'RESET_COUNTERS';
-
 export const resetCounters = () => ({
-    type: 'RESET_COUNTERS',
+    type: ActionTypes.RESET_COUNTERS,
 })
-
-export const ADD_COUNTER = 'ADD_COUNTER';
 
 export const addCounter = () => ({
-    type: 'ADD_COUNTER',
+    type: ActionTypes.ADD_COUNTER,
 })
 
-export const DELETE_COUNTER = 'DELETE_COUNTER';
-
 export const deteleCounter = (id) => ({
-    type: 'DELETE_COUNTER',
+    type: ActionTypes.DELETE_COUNTER,
     id
 })

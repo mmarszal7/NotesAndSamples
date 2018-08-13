@@ -20,7 +20,7 @@ const Counters = ({ counters, dispatch }) => (
 );
 
 const mapStateToProps = state => ({
-    counters: state.counterReducer.counters,
+    counters: state.counter.counters,
 });
 
 export default connect(mapStateToProps)(Counters);

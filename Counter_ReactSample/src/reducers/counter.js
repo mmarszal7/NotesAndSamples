@@ -1,15 +1,9 @@
-import {
-    INCREMENT,
-    DECREMENT,
-    RESET_COUNTERS,
-    ADD_COUNTER,
-    DELETE_COUNTER,
-} from '../actions/counter'
+import { ActionTypes } from '../actions/counter'
 import { Counter } from '../models/counter'
 
 let maxCounterID = 3;
 
-const initialCountersState = {
+const initialState = {
     counters: [
         new Counter(0, 0),
         new Counter(1, 0),
@@ -18,36 +12,36 @@ const initialCountersState = {
     ]
 }
 
-export const counterReducer = (state = initialCountersState, action) => {
+export const counterReducer = (state = initialState, action) => {
     switch (action.type) {
-        case INCREMENT:
+        case ActionTypes.INCREMENT:
             return {
                 ...state,
                 counters: state.counters.map(counter =>
                     (counter.id === action.id) ? { ...counter, value: counter.value + 1 } : counter)
             }
 
-        case DECREMENT:
+        case ActionTypes.DECREMENT:
             return {
                 ...state,
                 counters: state.counters.map(counter =>
                     (counter.id === action.id) ? { ...counter, value: counter.value - 1 } : counter)
             }
 
-        case RESET_COUNTERS:
+        case ActionTypes.RESET_COUNTERS:
             return {
                 ...state,
                 counters: state.counters.map(counter => ({ ...counter, value: 0 }))
             }
 
-        case ADD_COUNTER:
+        case ActionTypes.ADD_COUNTER:
             maxCounterID++;
             return {
                 ...state,
                 counters: [...state.counters, new Counter(maxCounterID, 0)]
             }
 
-        case DELETE_COUNTER:
+        case ActionTypes.DELETE_COUNTER:
             return {
                 ...state,
                 counters: [...state.counters.filter(c => c.id !== action.id)]
