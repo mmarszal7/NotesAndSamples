@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startTimer, stopTimer } from '../actions/timer';
+import { timerFormatter } from '../utils/timerFormatter'
 
-const Timer = ({ time, isInterval, dispatch }) => (
+const Timer = ({ duration, isInterval, dispatch }) => (
     <div>
         <h1>Timer</h1>
-        <span className={'timer ' + (isInterval ? 'text-info' : '')}>{time} {isInterval ? '(interval)' : ''}</span>
+        <span className={'timer ' + (isInterval ? 'text-info' : '')}>{timerFormatter(duration)} {isInterval ? '(interval)' : ''}</span>
 
         <form>
             <div className="form-group">
@@ -23,7 +24,7 @@ const Timer = ({ time, isInterval, dispatch }) => (
 )
 
 const mapStateToProps = state => ({
-    time: state.timer.time,
+    duration: state.timer.duration,
     isInterval: state.timer.isInterval,
 });
 
