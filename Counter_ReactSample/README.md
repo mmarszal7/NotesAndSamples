@@ -67,9 +67,9 @@ constructor(){
 Another way to solve this problem is to use arrow functions which do not bind 'this', they inherit it:
 
 ```
-	method = () => {
-		...
-	}
+method = () => {
+	...
+}
 ```
 
 You can send info to components (like @Input in Angular) by using 'props' - which are read-only!
@@ -107,7 +107,13 @@ Creating component list:
 render(){
     return (
         <div>
-        { this.state.list.map(l => <div key={l.id}> l.element </div>)}
+        { 
+            this.state.list.map(l => 
+                <div key={l.id}> 
+                    l.element 
+                </div>
+            )
+        }
         </div>
     );
 }
@@ -139,7 +145,7 @@ const App = () => (
 ```
 
 ## Producion build:
-
+Before build remove REDUX_DEVTOOLS_EXTENSION from index.js
 ```
 npm run build
 ```
@@ -218,7 +224,7 @@ npm install --save-dev typescript awesome-typescript-loader source-map-loader
         id
     })
     ```
-6. Example of dispatching actions or accessing state
+6. Example of dispatching actions or accessing state:
     ```
     let Counters = ({ counters, dispatch }) => ( 
         
@@ -233,10 +239,19 @@ npm install --save-dev typescript awesome-typescript-loader source-map-loader
 
     export default connect(mapStateToProps)(Counters);
     ``` 
+## Notes:
+- propTypes keep definition of properties types and names. They are used to make communication between components easier (it's not so important when all your data is in the store). 
+
+- exports and imports:
+    - when importing exported variables you have to add then in {}: 
+        > import {var1, var2} from './file';
+    - when useing *export default* you do not have to use {} in import statement:
+        > export default variable;
+        > import variable from './file';
 
 ## Extensions:
 
 - Chrome: React Developer Tools (see ^ Redux point 2.)
 - VS Code: Simple React Snippets 
     - imrc - import react class<br> 
-        - cc - create class
+    - cc - create class
