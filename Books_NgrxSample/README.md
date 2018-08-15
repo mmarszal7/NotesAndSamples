@@ -1,7 +1,7 @@
 ## Angular + ngrx book collection sample based on [ngrx example app](https://github.com/ngrx/platform/tree/master/example-app) 
 *Main difference is that states, reducers and selectors are in the separated files*
 
-## 0. Main ngrx pieces:
+## Main ngrx pieces:
 - States
 - Actions
 - Reducers
