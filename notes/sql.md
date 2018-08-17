@@ -9,9 +9,8 @@
     2.6. [Agregation Functions](#2.6-agregation-functions)<br>
     2.7. [Indexes](#2.7-indexes)<br>
     2.8. [Views](#2.8-views)<br>
-    2.9. **[Stored procedures](#2.9-stored-procedures)<br>**
-    2.10. **[Transactions](#2.10-transactions)<br>**
-    2.11 **[Subqueries](2.11-subqueries)**
+    2.9. **[Transactions](#2.9-transactions)<br>**
+    2.10 **Subqueries & Stored procedures & Views & Functions & CTE**
 4. [Datatypes and Constraints](#3.-datatypes-and-constraints)
 5. [Exercises](#4.-exercises)
 
@@ -52,7 +51,6 @@ Missing coma is also interpreted as alias:
 > SELECT column_name(s)
 FROM **table_name alias_name**;
 
-### Subqueries:
 ---
 ## 2.2 Database and Tables:
 
@@ -213,11 +211,9 @@ SELECT...
 DROP VIEW viewName
 ```
 ---
-2.9 Stored procedures:
+2.9 Transactions:
 ---
-2.10 Transactions:
----
-2.11 Subqueries
+2.10 Subqueries & Stored procedures & Views & Functions & CTE:
 ---
 ## 3. Datatypes and constraints:
 
