@@ -12,14 +12,14 @@ const Header = ({ location }) => (
             </button>
             <div className="collapse navbar-collapse" id="navbarCollapse">
                 <ul className="navbar-nav mr-auto">
+                    <li className={location.pathname === '/timer' ? 'nav-item active' : 'nav-item'}>
+                        <Link className="nav-link" to="/timer">Timer</Link>
+                    </li>
                     <li className={location.pathname === '/counter' ? 'nav-item active' : 'nav-item'}>
                         <Link className="nav-link" to="/counter">Counter</Link>
                     </li>
                     <li className={location.pathname === '/placeholder' ? 'nav-item active' : 'nav-item'}>
                         <Link className="nav-link" to="/placeholder">Placeholder</Link>
-                    </li>
-                    <li className={location.pathname === '/timer' ? 'nav-item active' : 'nav-item'}>
-                        <Link className="nav-link" to="/timer">Timer</Link>
                     </li>
                 </ul>
             </div>

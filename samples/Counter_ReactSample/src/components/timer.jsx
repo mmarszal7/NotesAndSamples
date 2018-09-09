@@ -11,11 +11,11 @@ const Timer = ({ duration, isInterval, dispatch }) => (
         <form>
             <div className="form-group">
                 <label>Timer [seconds]</label>
-                <input type="text" className="form-control" ref={(input) => this.secondsInput = input} defaultValue={0} />
+                <input type="text" className="form-control" ref={(input) => this.secondsInput = input} defaultValue={60} />
             </div>
             <div className="form-group">
                 <label>Interval time [seconds]</label>
-                <input type="text" className="form-control" ref={(input) => this.intervalInput = input} defaultValue={0} />
+                <input type="text" className="form-control" ref={(input) => this.intervalInput = input} defaultValue={15} />
             </div>
         </form>
         <button className="btn btn-primary" onClick={() => dispatch(startTimer(this.secondsInput.value, this.intervalInput.value))}>Start</button>

@@ -12,7 +12,7 @@ export default class App extends Component {
                 <React.Fragment>
                     <Header />
                     <main role="main" className="container mt-3">
-                        <Route exact={true} path="/" component={() => <Redirect to="/counter" />} />
+                        <Route exact={true} path="/" component={() => <Redirect to="/timer" />} />
                         <Route path="/counter" component={Counters} />
                         <Route path="/timer" component={Timer} />
                         <Route path="/placeholder" component={Placeholder} />
