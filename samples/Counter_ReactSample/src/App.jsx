@@ -16,6 +16,7 @@ export default class App extends Component {
                         <Route path="/counter" component={Counters} />
                         <Route path="/timer" component={Timer} />
                         <Route path="/placeholder" component={Placeholder} />
+						<Route component={() => <Redirect to="/timer" />} />
                     </main>
                 </React.Fragment>
             </Router>
