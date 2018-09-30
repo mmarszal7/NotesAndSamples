@@ -10,7 +10,8 @@
     2.7. [Indexes](#2.7-indexes)<br>
     2.8. [Views](#2.8-views)<br>
     2.9. **[Transactions](#2.9-transactions)<br>**
-    2.10 **Subqueries & Stored procedures & Views & Functions & CTE**
+    2.10 **Subqueries & Stored procedures & Views & Functions & CTE**<br>
+    2.11 [Database Functions](#2.11-database-functions)
 4. [Datatypes and Constraints](#3.-datatypes-and-constraints)
 5. [Exercises](#4.-exercises)
 
@@ -214,6 +215,36 @@ DROP VIEW viewName
 2.9 Transactions:
 ---
 2.10 Subqueries & Stored procedures & Views & Functions & CTE:
+---
+2.11 Database functions:
+CASE:
+``` SQL
+SELECT name,
+    CASE
+        WHEN clan = '' THEN 'undefined'
+        ELSE clan
+    END
+FROM ...
+```
+ROW_NUMBER():
+``` SQL
+ROW_NUMBER() OVER(ORDER BY SUM(points) DESC)
+```
+
+EXAMPLE:
+```
+SELECT 
+  ROW_NUMBER() OVER(ORDER BY SUM(points) DESC) as rank, 
+  SUM(points) as total_points, 
+  COUNT(name) as total_people,
+  CASE 
+    WHEN clan = '' THEN '[no clan specified]'
+    ELSE clan
+  END
+FROM people
+GROUP BY clan
+ORDER BY rank ASC
+```
 ---
 ## 3. Datatypes and constraints:
 
