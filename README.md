@@ -7,7 +7,8 @@
 5.1. [Angular](./notes/Angular.md)<br>
 5.2. [Angular ngrx](./samples/Books_NgrxSample/README.md)<br>
 5.3. [React](./notes/react.md)<br>
-5.4. [Global tools](./notes/global-tools.md)
+5.4. [Global tools](./notes/global-tools.md)<br>
+5.5. [Webpack](./notes/webpack.md)
 6. [Hotkeys](./notes/hotkeys.md)
 7. [Visual Studio environment configuration](./notes/vsConfig.md)
 8. [Non trivial C# coding guidelines](./notes/cs-guidelines.md)
