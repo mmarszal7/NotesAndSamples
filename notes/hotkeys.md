@@ -6,6 +6,7 @@
 * Shift+Esc - Chrome task manager
 * Alt + <-/-> - previous/next page
 * Ctrl + Tab / Ctrl + Shift + Tab / Ctrl + 1-8 - jump between opened tabs
+* Ctrl + Shift + P - opens search bar in Dev Tools (eg. for coverage tool) 
 
 
 ## 2. Total Commander:
