@@ -1,6 +1,4 @@
-## 1. Introduction to JS files management:
-
----
+## 1. Brief history of a JS files management:
 
 **Epoch I** - only 2 ways to serve JS files in browser:
 
@@ -36,12 +34,22 @@ Dveloping in one file is imposible, so actually there was only one solution.
 
 ---
 
-## 2. Core concepts of Webpack:
+## 2. 4 core concepts of Webpack:
 
-- entry
-- output
-- loaders + rules - loaders = apply this node module to files that match this **rule**.
-  Loaders can be chained into sequence from right to left ["style", "css", "less"]
+- entry - specifies root of dependency tree
+  ```
+  context: path.join(__dirname, "src"),
+  entry: "./index.ts",
+  ```
+- output - in most cases it is just dist folder path
+  ```
+  output: {
+      filename: "bundle.js",
+      path: path.join(__dirname, "dist")
+  }
+  ```
+- loaders and rules - loaders works like "apply X to files that match Y rule"
+  Loaders can be chained into sequence from right to left, e.g. ["style", "css", "less"]
 - plugins - js classes which instances you pass into bundling pipe - they are event driven
 
 ---
@@ -71,13 +79,17 @@ Dveloping in one file is imposible, so actually there was only one solution.
 
 **Loaders:**
 
-- { test: /\.(png|jpe?g)\$/, use: [ 'file-loader' ] } - loads files
-- { test: /\.(png|jpe?g)\$/, use: [ 'url-loader' ] } - encode files and loads them as base64
-- { test: /\.scss\$/, use: [ 'style-loader', 'css-loader', 'sass-loader' ] }
-- { test: /\.js\$/, exclude: /node_modules/, use: { loader: 'babel-loader', options: { presets: [ 'stage-0' ] } } }
-- TS files:
+- PNG/JPEG:
+  - { test: /\.(png|jpe?g)\$/, use: [ 'file-loader' ] } - loads files
+  - { test: /\.(png|jpe?g)\$/, use: [ 'url-loader' ] } - encode files and loads them as base64
+- SCSS/CSS
+  - { test: /\.scss\$/, use: [ 'style-loader', 'css-loader', 'sass-loader' ] }
+- JS
+  - { test: /\.js\$/, exclude: /node_modules/, use: { loader: 'babel-loader', options: { presets: [ 'stage-0' ] } } }
+- TS:
   - npm install -D babel-loader @babel/core @babel/preset-env webpack
   - npm install ts-loader typescript --save-dev
+  - resolve: { extensions: [".ts", ".js"] },
   - { test: /\.tsx?$/, loaders: [ { loader: "babel-loader", options: { presets: ["env"] } }, "ts-loader" ], exclude: /node_modules/ },
 
 **Plugins:**
@@ -85,7 +97,16 @@ Dveloping in one file is imposible, so actually there was only one solution.
 - HtmlWebpackPlugin - creates and outputs index.html
 - ProgressPlugin - showing bundling progress
 - MiniCssExtractPlugin - css file in separate file - just for performance and lazy loading
+- CopyWebpackPlugin - copies specified files to output folder
+  - new CopyWebpackPlugin([{ from: "plugin.json" }])
 
+**Options build in Webpack:**
+- \_dirname - variable that holds path to a directory where webpack.config is specified 
+- webpack -  
+  - const webpack = require("webpack");
+- path
+  - const path = require("path");
+  - join() - path.join(__dirname, "src")
 ---
 
 ## 4. General notes:
