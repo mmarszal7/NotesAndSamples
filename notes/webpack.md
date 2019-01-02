@@ -53,8 +53,21 @@ Dveloping in one file is imposible, so actually there was only one solution.
 - devtool: "source-map"
 
 **WebpackDevServer** - development web server (serving bundle files from a memory)
-
-- devServer: { contentBase: path.resolve(\_\_dirname, './dist'), index: 'index.html', port: 9000 },
+- npm install webpack-dev-server --save-dev
+- package.json
+    ```
+     "scripts": {
+        "watch": "webpack-dev-server"
+      },
+    ```
+- webpack.config.js
+    ```
+    devServer: { 
+        contentBase: path.resolve(\_\_dirname, './dist'),
+        index: 'index.html', 
+        port: 9000 
+    },
+    ```
 
 **Loaders:**
 
