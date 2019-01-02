@@ -75,7 +75,10 @@ Dveloping in one file is imposible, so actually there was only one solution.
 - { test: /\.(png|jpe?g)\$/, use: [ 'url-loader' ] } - encode files and loads them as base64
 - { test: /\.scss\$/, use: [ 'style-loader', 'css-loader', 'sass-loader' ] }
 - { test: /\.js\$/, exclude: /node_modules/, use: { loader: 'babel-loader', options: { presets: [ 'stage-0' ] } } }
-- { test: /\.tsx?$/, loaders: [ { loader: "babel-loader", options: { presets: ["env"] } }, "ts-loader" ], exclude: /node_modules/ },
+- TS files:
+  - npm install -D babel-loader @babel/core @babel/preset-env webpack
+  - npm install ts-loader typescript --save-dev
+  - { test: /\.tsx?$/, loaders: [ { loader: "babel-loader", options: { presets: ["env"] } }, "ts-loader" ], exclude: /node_modules/ },
 
 **Plugins:**
 
