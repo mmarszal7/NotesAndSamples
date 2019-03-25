@@ -13,3 +13,4 @@
 7. [Visual Studio environment configuration](./notes/vsConfig.md)
 8. [Non trivial C# coding guidelines](./notes/cs-guidelines.md)
 9. [Python](./notes/python.md)
+10. [Powershell](./notes/powershell.md)
