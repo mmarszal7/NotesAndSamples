@@ -14,3 +14,4 @@
 8. [Non trivial C# coding guidelines](./notes/cs-guidelines.md)
 9. [Python](./notes/python.md)
 10. [Powershell](./notes/powershell.md)
+11. [Redis](./notes/redis.md)
