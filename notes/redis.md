@@ -20,6 +20,8 @@ Persistence:
 - RDB (default) - **Redis Database File** - uses snapshots to rebuild db
 - AOF - **Append-only file** - uses logs to rebuild db
 
+**By default Redis has 16 databases (indexes/names 0-15)**
+
 ## 2. Configuration
 
 You can change configuration by editting configuration file or use CLI to change it **just for this run**: `CONFIG SET property "value"` (e.g. `CONFIG SET save "60 1000"` )
