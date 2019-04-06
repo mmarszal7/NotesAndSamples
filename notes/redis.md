@@ -45,12 +45,36 @@ COPY redis.conf /usr/local/etc/redis/redis.conf
 CMD [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
 ```
 
-## 3. CLI commands
+## 3. CLI commands - [https://redis.io/commands]
 
-- login - `redis-cli -a PASSWORD`
-- get/set:
-  - `redis-cli set KEY VALUE`
-  - `redis-cli get KEY`
-- publish/subscribe:
-  - `redis-cli subscribe CHANNEL1 CHANNEL2...`
-  - `redis-cli publish "MESSAGE"`
+- **login** - `redis-cli -a PASSWORD`
+- **list all keys** - `keys`
+- **publish/subscribe**
+  - `subscribe CHANNEL1 CHANNEL2...`
+  - `publish "MESSAGE"`
+- **strings**:
+  - get/set:
+    - `set KEY VALUE`
+    - `get KEY`
+    - `getset KEY VALUE` - returns current value and replaces it with new one
+    - `mset KEY VALUE KEY VALUE...` - sets multiple values
+    - `mget KEY KEY...` - gets multiple values
+  - `expire X` or `set KEY VALUE ex X` - sets expiration time for key in sec
+  - `exists KEY`
+  - `del KEY`
+  - `incr KEY` or `decr KEY` - increments/decrements key by 1
+- **hashes**:
+  - before any operation you have to specify `fieldName` or the hash - `hget FIELD_NAME KEY VALUE...`
+  - everything else is like in strings but with `h` prefix (`hset, hget, hmset, hmget, hexists...`)
+  - `hgetall FIELD_NAME` - gets all hash values
+- **lists**:
+  - push/pop:
+    - `rpush LIST_NAME VALUE VALUE VALUE...` - "right push", add items to the list
+    - `lpush LIST_NAME VALUE VALUE...`
+    - `rpop LIST_NAME FROM TO`
+    - `lpop LIST_NAME FROM TO`
+  - `lrange LIST_NAME START STOP` - e.g. `lrange LIST_NAME 0 -3` lists everything from `LIST_NAME` except last 2 records
+  - `llen LIST_NAME` - length of list
+- **sets and sorted sets**:
+  - https://redis.io/commands#set
+  - https://redis.io/commands#sorted_set
