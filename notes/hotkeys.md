@@ -41,3 +41,13 @@ Website with hotkeys:
 * Ctrl+Num- 	- Deselect all
 * Alt+Num+	- Select all files with extension
 * Alt+Num- 	- Deselect all files with extension
+
+## 3. Visual Studio:
+* Ctrl + T - Go to file / File search
+* Ctrl + F10 - Go to coursor
+* Ctrl + Shift + F - Advanced search box
+* F3 - Go to next occurence in document
+* Ctrl + \[ + s - Locate file in Solution Explorer
+
+## 4. Windows:
+* Alt + number - Open application from taskbar
