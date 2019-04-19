@@ -10,6 +10,7 @@
 - conda env export --file environment.yml
 - conda env create -f environment.yml
 - yolk -V django 
+- python -m pip install --user numpy scipy matplotlib ipython jupyter pandas flask
 
 #### Code/project structure:
 **Package** - folder with source code files and \_\_init\_\_.py file </br>
