@@ -3,7 +3,7 @@
 1. [Git CLI](./notes/gitCLI.md)
 2. [Design Patterns](./notes/designPatterns.md)
 3. [Linux](./notes/linux.md)
-4. [SQL](./notes/sql.md)
+4. [SQL and SQL Databases](./notes/sql.md)
 5. [JavaScript:](./)<br>
    5.1. [Angular](./notes/Angular.md)<br>
    5.2. [Angular ngrx](./samples/Books_NgrxSample/README.md)<br>
