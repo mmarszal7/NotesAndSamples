@@ -31,7 +31,7 @@
 
 - **ETL** (extract, transfer, load) tools - tools for migrating data from storage (e.g. SQL db) to data warehouse (e.g. Hadoop). Examples of ETLs: Spark, Microsoft SSIS, Azure Data Factory, ...
 
-- **Partitioning** - 
+- **Partitioning** - dividing a database tables into smaller chunks for greater efficiency and quicker information retrieval
    - Horizontal (row) partitioning - different sets/rows into different tables (e.g. _table1_: names A-M; _table2_: names M-Z; or _table1_: dates 1990-200; _table2_: dates 2000-2010)
    - Vertical (column) partitioning - different properties into different tables (e.g. _tabel1_: id, names, lastnames, age; _table2_: id, date, groupID)
    - Sharding - horizontal partitioning
