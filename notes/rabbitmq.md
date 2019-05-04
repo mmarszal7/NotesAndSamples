@@ -1,61 +1,46 @@
-# RabbitMQ
+# [RabbitMQ](https://www.youtube.com/watch?v=deG25y_r6OY)
 
-AMQP (advanced message queue protocol) standard:
+Key Concepts:
 
-Bacis Concepts:
-- message broker - centralized messageing server (with multiple exchanges)
-- exchanges:
-  - direct
-  - fan-out - copy message to each queue
-  - topic - routing
-  - headers - routing based on headers
-- queues - store for messages FIFO
+- exchange (router) - distributes messages betweeen queues based on binding key (defined in queues) and routing key (defined in message):
+  - fan-out - sends message to every queue
+  - direct (exact match) - sends message to queue where routing key == binding key
+  - topic (partial match) - sends message to queue where routing key matches binding key rules
+  - headers - sends message to queue where routing key in header matches binding key
+- queue (FIFO) - store for messages
 - bindings - rule between exchange and queue
 
-- producer and consumer of a message
+Other concepts:
 
-Queue persistence - messages in queue can be __durable__ or __non-durable__ which means that they will be stored on disk or just in-memory (performance vs. recoverability trade-off)
+- AMQP - Advanced Message Queue Protocol standard
+- message broker - centralized messageing server - application hosting exchanges and queues
+- Producer and Consumer of a message
+- Queue persistence - messages in queue can be **durable** or **non-durable** which means that they will be stored on disk or just in-memory (performance vs. recoverability trade-off)
 
-Process:
+Preparing infrastructure:
+
 - create Exchange - "Add a new exchange" in portal or use ExchangeDeclare() method in C#
 - create Queue - "Add a new queue" in portal or use QueueDeclare() method in C#
 - bind queue to exchange - In queue > Bindings add exchange and routing arguments or use QueueBind() method in C#
 
-
-
 ## Send example
+
 Send message - BasicPublish(bytesArray)
 Queue properties - CreateBasicProperties() (e.g. SetPersistent(bool))
-``` C#
+
+```C#
 Code
 ```
-
 
 ## Consume example
 
 Consuming message - BasicQos() model + QueueingBasicConsumer(model) + BasicConsume()
-``` C#
+
+```C#
 Code
-BasicQos() model 
-QueueingBasicConsumer(model) 
+BasicQos() model
+QueueingBasicConsumer(model)
 BasicConsume()
 Dequeue().Body
 BasicAck()
 ```
-
-Message Exchange Patterns:
-
-Exchange picks queue:
-- one way messaging
-- worker queues (message broker) - many consumers + routing by queueName
-
-Queue picks exchange:
-- publish/subscribe
-- RPC (remote procedure call)
-
-Routing:
-- Routing - message routing key **equals** queue routing key
-- Topic - message routing  **matches** queue routing key expression (routing key with * and #)
-- Headers - message routing key **equals** queue headers
-- 
-- Scatter Gather
