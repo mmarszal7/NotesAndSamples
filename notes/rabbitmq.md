@@ -5,7 +5,9 @@ Key Concepts:
 - exchange (router) - distributes messages betweeen queues based on binding key (defined in queues) and routing key (defined in message):
   - fan-out - sends message to every queue
   - direct (exact match) - sends message to queue where routing key == binding key
-  - topic (partial match) - sends message to queue where routing key matches binding key rules
+  - topic (partial match) - sends message to queue where routing key matches binding key rules:
+    - \* (star) can substitute for exactly one word
+    - \# (hash) can substitute for zero or more words
   - headers - sends message to queue where routing key in header matches binding key
 - queue (FIFO) - store for messages
 - bindings - rule between exchange and queue
