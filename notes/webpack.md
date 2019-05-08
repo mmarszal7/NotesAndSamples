@@ -121,3 +121,4 @@ Dveloping in one file is imposible, so actually there was only one solution.
 
 - Udemy - https://github.com/vp-online-courses/webpack-tutorial
 - Pluralsight - https://github.com/TheLarkInn/webpack-workshop-2018
+- Super tool for creating webpack.config - https://createapp.dev/webpack
