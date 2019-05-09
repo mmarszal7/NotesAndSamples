@@ -43,6 +43,7 @@ Website with hotkeys:
 * Alt+Num- 	- Deselect all files with extension
 
 ## 3. Visual Studio:
+* **Ctrl + R / Ctrl + R** - Rename
 * Ctrl + T - Go to file / File search
 * Ctrl + F10 - Go to coursor
 * Ctrl + Shift + F - Advanced search box
