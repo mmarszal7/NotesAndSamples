@@ -43,12 +43,16 @@ Website with hotkeys:
 * Alt+Num- 	- Deselect all files with extension
 
 ## 3. Visual Studio:
+* F3 - Go to next occurence in document
 * **Ctrl + R / Ctrl + R** - Rename
 * Ctrl + T - Go to file / File search
 * Ctrl + F10 - Go to coursor
 * Ctrl + Shift + F - Advanced search box
-* F3 - Go to next occurence in document
 * Ctrl + \[ + s - Locate file in Solution Explorer
+* Ctrl + Shift + V - Clipboard history
+* Ctrl + Alt + click - Multi-caret
+* **Ctrl + K, Ctrl + S** - Surround with...
+* **Shift + Alt + .** - Select same things (Shift + Alt + . - to unselect last selection)
 
 ## 4. Windows:
 * Alt + number - Open application from taskbar
