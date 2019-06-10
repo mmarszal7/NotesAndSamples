@@ -52,6 +52,8 @@ Website with hotkeys:
 * Ctrl + Shift + V - Clipboard history
 * Ctrl + Alt + click - Multi-caret
 * **Ctrl + K, Ctrl + S** - Surround with...
+* **Ctrl + F12** - Peak into file
+* Ctrl - make intellisense window transparent
 * **Shift + Alt + .** - Select same things (Shift + Alt + . - to unselect last selection)
 
 ## 4. Windows:
