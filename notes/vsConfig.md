@@ -36,9 +36,12 @@
     "python.pythonPath": "C:/Anaconda3/python",
     "python.linting.pylintArgs": ["--errors-only"],
     
+    "typescript.referencesCodeLens.enabled": true,
+    
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.detectIndentation": false,
+    "prettier.printWidth": 150,
 
     "editor.tokenColorCustomizations":{
         "textMateRules": [
