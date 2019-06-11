@@ -17,7 +17,7 @@
 - Bracket Pait Colorizer
 
 ### Visual Studio Code settings:
-```
+```JSON
 {
     "workbench.colorTheme": "Visual Studio Light",
     "workbench.iconTheme": "vscode-icons",
