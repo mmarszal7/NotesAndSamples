@@ -55,6 +55,7 @@ Website with hotkeys:
 * **Ctrl + F12** - Peak into file
 * Ctrl - make intellisense window transparent
 * **Shift + Alt + .** - Select same things (Shift + Alt + . - to unselect last selection)
+* **Shift + F9** - Debug: Quick Watch
 
 ## 4. Windows:
 * Alt + number - Open application from taskbar
