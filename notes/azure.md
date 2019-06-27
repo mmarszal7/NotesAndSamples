@@ -97,3 +97,56 @@
 
 - Text:
   - [LUIS](https://www.luis.ai/home) (Language Understanding) - NPL
+
+---
+
+## 7. Active Directory & Key Vault - [overview](https://developer.okta.com/blog/2018/03/23/token-authentication-aspnetcore-complete-guide#validate-tokens-in-aspnet-core):
+
+### Authentication with [OpenID Connect](https://connect2id.com/learn/openid-connect):
+
+<p align="center"><img src="../assets/authFlow.png"></p>
+
+### In ASP.NET apps there are 3 places where you have to set up Authentication:
+
+1. **Startup.cs -> Configure()** - information for HTTP methods "look for auth tokens in cookies":
+
+   ```csharp
+    app.UseAuthentication();
+   ```
+
+2. **Startup.cs -> ConfigureServices()** - general configuration for JWT tokens:
+
+   ```csharp
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+            // ApplicationIDURI - https://{domainName}.onmicrosoft.com/{appName}
+            options.Audience = Configuration["AzureAd:ApplicationIDURI"];
+            options.Authority = $"{Configuration["AzureAd:Instance"]}{Configuration["AzureAd:TenantId"]}"
+        });
+
+        // Default but problematic :(
+        //services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+        //    .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+   ```
+
+3. **Startup.cs -> ConfigureServices()** or in Controllers - here you can add global auth filter/policy (this can be also done by attributes like [Authorize]):
+   ```csharp
+    services.AddMvc(options =>
+      {
+        var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+        options.Filters.Add(new AuthorizeFilter(policy));
+      })
+   ```
+
+### Postman configuration:
+
+<p align="center"><img src="../assets/postmanToken.png"></p>
+
+## **Key vault**
+
+Pretty straight forward. For defined **keys** and **secrets** you get **Identifiers** that can be used like:
+
+> @Microsoft.KeyVault(SecretUri=**{keyVaultIdentifier}**)
+
+---
