@@ -104,7 +104,7 @@
 
 ### Authentication with [OpenID Connect](https://connect2id.com/learn/openid-connect):
 
-<p align="center"><img src="../assets/authFlow.png"></p>
+<p align="center"><img src="../assets/authFlow.PNG"></p>
 
 ### In ASP.NET apps there are 3 places where you have to set up Authentication:
 
@@ -141,7 +141,7 @@
 
 ### Postman configuration:
 
-<p align="center"><img src="../assets/postmanToken.png"></p>
+<p align="center"><img src="../assets/postmanToken.PNG"></p>
 
 ## **Key vault**
 
