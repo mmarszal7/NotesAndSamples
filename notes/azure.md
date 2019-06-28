@@ -140,7 +140,9 @@
    ```
 
 ### Postman configuration:
-
+1. In Azure set Redirect URIs to: *https://www.getpostman.com/oauth2/callback*
+2. In Azure AD set manifest "oauth2AllowImplicitFlow" to *true*
+3. Configure Postman:
 <p align="center"><img src="../assets/postmanToken.PNG"></p>
 
 ## **Key vault**
