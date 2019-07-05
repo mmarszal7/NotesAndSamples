@@ -19,3 +19,4 @@
 12. [Mongo](./notes/mongo.md)
 13. [RabbitMQ](./notes/rabbitmq.md)
 14. [Azure](./notes/azure.md)
+15. [DDD](./notes/ddd.md)
