@@ -57,5 +57,18 @@ Website with hotkeys:
 * **Shift + Alt + .** - Select same things (Shift + Alt + . - to unselect last selection)
 * **Shift + F9** - Debug: Quick Watch
 
-## 4. Windows:
+## 4. [Visual Studio Code](https://dev.to/lampewebdev/the-guide-to-visual-studio-code-shortcuts-higher-productivity-and-30-of-my-favourite-shortcuts-you-need-to-learn-mb3?WT.mc_id=twc9-c9-chwarren):
+* Ctrl + K, Ctrl + S - show all key bindings
+* Ctrl + Shift + P or F1 - command pallete
+* Ctrl + P - search in project
+* Ctrl + \` or Ctrl + J - terminal
+* Ctrl + K, Ctrl + Z - zen mode
+* Ctrl + \ or Ctrl + K, Ctrl + \ - split screen
+* **Ctrl + K, U** - close only the saved editor windows
+* Ctrl + K, M - change language of current file
+* **Ctrl + G** - go to line
+* **Ctrl + Shift + O** - go to symbol
+* **Ctrl + Shift + \[ or \]** - fold/unfold code
+
+## 5. Windows:
 * Alt + number - Open application from taskbar
