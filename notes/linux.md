@@ -56,7 +56,7 @@ apt-get upgrade - aktualizacja paczek
 * apt-get upgrade - aktualizacja paczek
 * apt-get install xyz - instalacja paczki
 
-#### b) tmux hotkeys (ctrl + b, ...):
+#### b) [tmux hotkeys](https://gist.github.com/henrik/1967800) (**ctrl + b**, ...):
 * ctrl + % / " - new split
 * arrows - move splits windows
 * ctrl+arrows - resize window
