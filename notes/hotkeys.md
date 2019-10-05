@@ -45,7 +45,11 @@ Website with hotkeys:
 ## 3. Visual Studio:
 * F3 - Go to next occurence in document
 * **Ctrl + R / Ctrl + R** - Rename
-* Ctrl + T - Go to file / File search
+* **Ctrl + T** - Go to file / File search
+* Ctrl + Shift + C - Inspect / Class View
+* Alt + \` - Navigate to
+* Ctrl + - - Go to previous place in code
+* Alt + PageUp/PageDown - next warning
 * Ctrl + F10 - Go to coursor
 * Ctrl + Shift + F - Advanced search box
 * Ctrl + \[ + s - Locate file in Solution Explorer
@@ -56,6 +60,19 @@ Website with hotkeys:
 * Ctrl - make intellisense window transparent
 * **Shift + Alt + .** - Select same things (Shift + Alt + . - to unselect last selection)
 * **Shift + F9** - Debug: Quick Watch
+
+## 3.5. [Resharper](https://www.jetbrains.com/help/resharper/Reference__Keyboard_Shortcuts.html):
+* Alt + R - General Resharper
+* Ctrl + Alt + F - File structure
+* Ctrl + , - Go to recent files
+* Ctrl + Shift + , - Go to recent edits
+* Ctrl + Shift + R - Refactor this (class, method, line, even csproj)
+* Ctrl + Alt + Insert - Create new file (with class, interface, enum, controller etc.)
+* Ctrl + E, U - Surround with...
+* Ctrl + Shift + Alt + 5 - Toogle parameter name hints
+* Alt + up/down - Next method
+* Ctrl + R, V - Create variable from class name
+* Alt + Insert - "Insert" menu - e.g. insert constructor
 
 ## 4. [Visual Studio Code](https://dev.to/lampewebdev/the-guide-to-visual-studio-code-shortcuts-higher-productivity-and-30-of-my-favourite-shortcuts-you-need-to-learn-mb3?WT.mc_id=twc9-c9-chwarren):
 * Ctrl + K, Ctrl + S - show all key bindings
