@@ -23,6 +23,8 @@ apt-get upgrade - aktualizacja paczek
 * chmod 777 filename - edycja uprawnień plików
 * stat -c %a file - sprawdzenie jakie uprawnienia są przypisane do pliku
 * unzip file.zip -d destination_folder - rozpakowywanie
+* export VARIABLE="VALUE" - sets up environmental variable VARIABLE with value VALUE
+* echo $VARIABLE - prints a value of environmental variable VARIABLE
 
 #### b) processes
 * free -m - listuje statystyki ramu w MB
