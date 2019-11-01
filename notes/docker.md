@@ -16,7 +16,7 @@ docker container logs $alias                                            # check 
 docker container exec (-it) $alias powershell "Get-Process"             # execute command inside container
 docker container rm --force $(docker container ls --quiet --all)        # remove all containers (even still running)
 exit                                                                    # exit container
-docker export --output="latest.tar" $containerName						# export docker container to a *.tar file
+docker export --output="latest.tar" $containerName			# export docker container to a *.tar file
 ```
 
 ## 1.2 Images:
@@ -43,18 +43,18 @@ Differences between RUN, ENVIRONMENT and CMD
 	```
 
 Example Dockerfile:
-``` Dockerfile
-# escape=`																# escape character definition
-FROM $imageName as $alias												# basic image name
-WORKDIR C:\																# base workdir definition
-COPY src/project ./project # or ADD										# ADD works the same but lets you copy from URL or archives 
-RUN dotnet restore                                                      # ' - is a new line operator
-ENTRYPOINT ["dotnet", "WebApplication.dll"]								# run 'dotnet WebApplication.dll' command on container start
+``` powershell
+# escape=`								# escape character definition
+FROM $imageName as $alias						# basic image name
+WORKDIR C:\								# base workdir definition
+COPY src/project ./project # or ADD					# ADD works the same but lets you copy from URL or archives 
+RUN dotnet restore                                                     
+ENTRYPOINT ["dotnet", "WebApplication.dll"]				# run 'dotnet WebApplication.dll' command on container start
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]	# overrides default Shell, here sets it up to powershell
 HEALTHCHECK --interval=2s `                                             # you can define HEALTHCHECK script that determines if container is ok or not
-    CMD if ($response.StatusCode -eq 200) { return 0} `					# CMD allows you to override parameters (in this case powershell code) when running container
-	 	else {return 1}													# 	because of specified shell, you can here write powershell code
+    CMD if ($response.StatusCode -eq 200) { return 0} `			# CMD allows you to override parameters (in this case powershell code) when running container
+	 	else {return 1}						# because of specified shell, you can here write powershell code
 ```
 
 \* There are images called **Multi arch images** (like mcr.microsoft.com/dotnet/core/sdk:3) which under the same image name have multiple architecture versions (Linux, Windows, ARM...) - this allows you to use one Dockerfile for all your devices.
@@ -189,7 +189,19 @@ kubectl delete deployment $serviceName
 ```
 
 ## 2.4 Kubernetes YAML
-Application
+1. **Deplyoment** - every apps you run:
+	- without defined **Service** - cannot be accessed by anything e.g event handlers
+	- with defined **Service** - can be accessed:
+		- with __ClusterIP__ - internally (database, helper APIs)
+		- with __LoadBalancer__ - externally (log analytics, load balancer)
+2. **Ingress** - allowing external trafic
+3. **ServiceAccount** - enables access control
+
+``` powershell
+kubectl apply -f $yamlPath                                              # run service file by file or whole folder
+```
+
+### Application
 ```yaml
 # Application
 apiVersion: v1
@@ -235,7 +247,7 @@ spec:
       nodeSelector:
         beta.kubernetes.io/os: linux
 ```
-Ingress
+### Ingress
 ```yaml
 # Ingress
 apiVersion: extensions/v1beta1
@@ -255,7 +267,7 @@ spec:
           serviceName: homepage
           servicePort: http
 ```
-ServiceAccount
+### ServiceAccount
 ```yaml
 # ServiceAccount - reverse proxy
 apiVersion: v1
@@ -318,8 +330,4 @@ spec:
         - --kubernetes
         - --logLevel=INFO
 
-```
-* All dependencies should be configured in environment section in yaml file
-``` powershell
-kubectl apply -f $yamlPath # file by file or whole folder
 ```
