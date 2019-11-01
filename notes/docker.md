@@ -87,6 +87,65 @@ docker secret inspect --pretty $secretName
 ``` powershell
 docker-compose -f $yamlPath up -d                                       # run form file, "up" services, run as detached
 ```
+Docker yaml example:
+``` yaml
+version: '1.0'
+
+services:
+  
+  web-app:
+    image: my/web-app
+    environment: 
+      ConnectionString: http://connectionString
+      Dependencies:IDataLoader: WebApp.ReferenceData.DataLoader
+    networks:
+      - app-net
+      
+    # not allowed in Swarm mode
+    labels:
+      traefik.frontend.rule: PathPrefix:/app
+    depends_on:
+      - database
+      
+    # allowed only in Swarm mode
+    configs:
+      - source: log4net
+    secrets:
+     - source: connectionStrings
+    healthcheck:
+      retries: 3
+      interval: 10s
+      start_period: 40s
+    deploy:
+      replicas: 2
+      labels:
+        traefik.frontend.rule: PathPrefix:/app
+
+  proxy:
+    image: traefik:v1.7.18-windowsservercore-1809
+    command: --docker --docker.endpoint=npipe:////./pipe/docker_engine --docker.watch --api
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - type: npipe
+        source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine      
+    networks:
+      - app-net
+
+networks:
+  app-net:
+
+# configs and secrets are allowed only in Swarm mode
+configs:
+  log4net:
+    external: true
+
+secrets:
+  connectionStrings:
+    external: true
+```
 Networking - default network for each container is its name - to access services between containers use their names **http://servicename:80** instead of http://localhost:80
 <br><br><br>
 Additionally Docker Swarm can use docker-compose yaml files with some additional attributes like: **healthcheck**, **configs**, **secrets** and **deploy**
