@@ -9,42 +9,55 @@ $imageName = repository/name/tag
 
 docker container ls --all                                               # list all containers
 docker container run $imageName                                         # run container
-docker container run --interactive --tty --rm $imageName                #run container in interactive mode and remove it after after closing
+docker container run --interactive --tty --rm $imageName                # run container in interactive mode (-i) with terminal access (-t) and remove it after after closing
 docker container run --detach --name $alias --publish 80:80 $imageName  # run container in detached/background mode on port :80
 docker container top $alias                                             # check running processes inside container
 docker container logs $alias                                            # check contaner logs
 docker container exec (-it) $alias powershell "Get-Process"             # execute command inside container
 docker container rm --force $(docker container ls --quiet --all)        # remove all containers (even still running)
 exit                                                                    # exit container
+docker export --output="latest.tar" $containerName						# export docker container to a *.tar file
 ```
 
 ### 1.2 Images:
 ``` powershell
 docker login --username $dockerId                                       # login and push image to docker registry
 docker image push $dockerId/$imageName
-docker image build --tag $imageName $dockerfilePath                     # build image from Dockerfile
+docker image build --tag $imageName --file $dockerfileNAME .            # build image from specified $dockerfileNAME in current directory (notice dot at the end)
 docker images ls --all                                                  # list all images
 ```
-### 1.3 Dockerfile
-``` powershell
-FROM $imageName as $alias
-WORKDIR C:\
-COPY src/project ./project
+### 1.3 [Dockerfile](https://docs.docker.com/engine/reference/builder/)
+
+Some commands like RUN, ENVIRONMENT or CMD have 2 possible forms:
+- shell form: RUN dotnet restore
+- exec form: RUN ["dotnet", "restore"]
+
+Differences between RUN, ENVIRONMENT and CMD
+
+1. RUN - creates new layer in the image and runs command there
+2. ENTRYPOINT - command that will be run when container starts
+3. CMD (["param1","param2"]) - sets default command and/or parameters, which can be overwritten from command line when docker container runs. If you don't specify command, parameters will be added to ENTRYPOINT (there can be only 1 CMD instruction in Dockerfile)
+	``` Dockerfile
+	ENTRYPOINT ["/bin/echo", "Hello"]
+	CMD ["world"]
+	```
+
+Example Dockerfile:
+``` Dockerfile
+# escape=`																# escape character definition
+FROM $imageName as $alias												# basic image name
+WORKDIR C:\																# base workdir definition
+COPY src/project ./project # or ADD										# ADD works the same but lets you copy from URL or archives 
 RUN dotnet restore                                                      # ' - is a new line operator
-ENTRYPOINT ["dotnet", "WebApplication.dll"]
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
-HEALTHCHECK --interval=2s `                                             #  you can define HEALTHCHECK script that determines if container is ok or not
-    CMD powershell -command if ($response.StatusCode -eq 200) { return 0} else {return 1}
+ENTRYPOINT ["dotnet", "WebApplication.dll"]								# run 'dotnet WebApplication.dll' command on container start
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]	# overrides default Shell, here sets it up to powershell
+HEALTHCHECK --interval=2s `                                             # you can define HEALTHCHECK script that determines if container is ok or not
+    CMD if ($response.StatusCode -eq 200) { return 0} `					# CMD allows you to override parameters (in this case powershell code) when running container
+	 	else {return 1}													# 	because of specified shell, you can here write powershell code
 ```
 
-### 1.4 Docker-compose:
-``` powershell
-docker-compose -f $yamlPath up -d                                       # run form file, "up" services, run as detached
-```
-
-### 1.5 Docker-compose.yaml
-Networking - default network for each container is its name - to access services between containers use their names **http://servicename:80** instead of http://localhost:80
-
+\* There are images called **Multi arch images** (like mcr.microsoft.com/dotnet/core/sdk:3) which under the same image name have multiple architecture versions (Linux, Windows, ARM...) - this allows you to use one Dockerfile for all your devices.
 
 ## 2. Orchestrators
 There are 2 most popular orchestrators: **Docker Swarm** (built in Docker) and **Kubernetes**. Both have similar architecture with 1 manager and many workers (usually over multiple phisical servers).<br>
@@ -70,7 +83,12 @@ docker secret create $secretName $secretPath
 docker secret inspect --pretty $secretName
 ```
 
-### 2.2 Dockerfile
+### 2.2 Docker-compose and yaml files:
+``` powershell
+docker-compose -f $yamlPath up -d                                       # run form file, "up" services, run as detached
+```
+Networking - default network for each container is its name - to access services between containers use their names **http://servicename:80** instead of http://localhost:80
+<br><br><br>
 Additionally Docker Swarm can use docker-compose yaml files with some additional attributes like: **healthcheck**, **configs**, **secrets** and **deploy**
 ``` powershell
 docker stack deploy -c docker-stack.yml signup
@@ -107,14 +125,10 @@ kubectl delete deployment $serviceName
 ```
 
 ### 2.4 YAML
+* All dependencies should be configured in environment section in yaml file
 ``` powershell
 kubectl apply -f $yamlPath # file by file or whole folder
 ```
 
 ## ToDo:
-- what is -tty? difference between -tty and -it
-- is really docker image just a zip/tar file?
-- difference between SHELL, ENTRYPOINT and RUN
-- docker image build -t $imageName -f $dockerfilePath . - ?? - what is $path and what is '.'?<br><br>
-- explain commands in Dockerfiles and docker-compose.yaml (1.3, 1.5)
 - notes for orchestrators (2.*)
