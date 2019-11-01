@@ -1,9 +1,9 @@
 # Docker
 Below notes are based on project [Docker and Kubernetes for .NET Developers](https://github.com/sixeyed/dak4.net) and presentation available on https://dak4.net and https://netdd19.dak4.net
 
-## 1. Docker CLI:
+# 1. Docker CLI:
 
-### 1.1 Containers:
+## 1.1 Containers:
 ``` powershell
 $imageName = repository/name/tag
 
@@ -19,14 +19,14 @@ exit                                                                    # exit c
 docker export --output="latest.tar" $containerName						# export docker container to a *.tar file
 ```
 
-### 1.2 Images:
+## 1.2 Images:
 ``` powershell
 docker login --username $dockerId                                       # login and push image to docker registry
 docker image push $dockerId/$imageName
 docker image build --tag $imageName --file $dockerfileNAME .            # build image from specified $dockerfileNAME in current directory (notice dot at the end)
 docker images ls --all                                                  # list all images
 ```
-### 1.3 [Dockerfile](https://docs.docker.com/engine/reference/builder/)
+## 1.3 [Dockerfile](https://docs.docker.com/engine/reference/builder/)
 
 Some commands like RUN, ENVIRONMENT or CMD have 2 possible forms:
 - shell form: RUN dotnet restore
@@ -59,12 +59,12 @@ HEALTHCHECK --interval=2s `                                             # you ca
 
 \* There are images called **Multi arch images** (like mcr.microsoft.com/dotnet/core/sdk:3) which under the same image name have multiple architecture versions (Linux, Windows, ARM...) - this allows you to use one Dockerfile for all your devices.
 
-## 2. Orchestrators
+# 2. Orchestrators
 There are 2 most popular orchestrators: **Docker Swarm** (built in Docker) and **Kubernetes**. Both have similar architecture with 1 manager and many workers (usually over multiple phisical servers).<br>
 
 Having orchestrator over your containers allow you to define environment specific: **configs**, **secrets**, **persistent storages (VolumeMount)** etc.<br> 
 
-### 2.1 Docker swarm
+## 2.1 Docker swarm
 ``` powershell
 docker swarm init --advertise-addr 127.0.0.1
 docker swarm join --token $token - join your server to other swarm
@@ -83,9 +83,10 @@ docker secret create $secretName $secretPath
 docker secret inspect --pretty $secretName
 ```
 
-### 2.2 Docker-compose and yaml files:
+## 2.2 Docker-compose and yaml files:
 ``` powershell
 docker-compose -f $yamlPath up -d                                       # run form file, "up" services, run as detached
+docker-compose -f .\core.yml -f .\prod.yml config > docker-stack.yml    # combine 2 yaml files into one
 ```
 Docker yaml example:
 ``` yaml
@@ -153,7 +154,7 @@ Additionally Docker Swarm can use docker-compose yaml files with some additional
 docker stack deploy -c docker-stack.yml signup
 ```
 
-### 2.3 Kubernetes
+## 2.3 Kubernetes
 It's so popular because it's extensive (e.g. for secrets you can use your own sevice like Azure Key Vault) and fact that there are no real Docker Swarm managed services.<br>
 
 Biggest difference between Kubernetes and other solutions is using one more wrapper/abstraction layer over set of containers - Pods.<br> 
@@ -172,6 +173,10 @@ Additionally Kubernetes has its own UI/Dashboard for managing containers. But be
 - Service
 - LoadBalancer
 
+<p align="center"> 
+<img src="../assets/kubernetes.jpg">
+</p>
+
 ``` powershell
 kubectl get nodes
 kubectl get all
@@ -183,11 +188,138 @@ kubectl delete pods/rs --all --force --grace-period=0
 kubectl delete deployment $serviceName
 ```
 
-### 2.4 YAML
+## 2.4 Kubernetes YAML
+Application
+```yaml
+# Application
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+spec:
+  selector:    
+    app: signup
+    component: api
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  selector:
+    matchLabels:
+      app: signup
+      component: api
+  template:
+    metadata:
+      labels:
+        app: signup
+        component: api
+    spec:
+      containers:
+      - image: my/web-app
+        name: web-app
+        env:
+        - name: ConnectionStrings
+          value: "http://connectionStrings"
+        ports:
+        - containerPort: 80
+          name: http
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+```
+Ingress
+```yaml
+# Ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: signup
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: homepage
+          servicePort: http
+```
+ServiceAccount
+```yaml
+# ServiceAccount - reverse proxy
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik-ingress-controller
+  namespace: kube-system
+  
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: traefik-ingress-service
+  namespace: kube-system
+spec:
+  selector:
+    k8s-app: traefik-ingress-lb
+  ports:
+    - protocol: TCP
+      port: 80
+      name: http
+    - protocol: TCP
+      port: 8080
+      name: admin
+  type: LoadBalancer
+  
+---
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: traefik-ingress-controller
+  namespace: kube-system
+  labels:
+    k8s-app: traefik-ingress-lb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: traefik-ingress-lb
+  template:
+    metadata:
+      labels:
+        k8s-app: traefik-ingress-lb
+        name: traefik-ingress-lb
+    spec:
+      serviceAccountName: traefik-ingress-controller
+      terminationGracePeriodSeconds: 60
+      containers:
+      - image: traefik:1.7.18-alpine
+        name: traefik-ingress-lb
+        ports:
+        - name: http
+          containerPort: 80
+        - name: admin
+          containerPort: 8080
+        args:
+        - --api
+        - --kubernetes
+        - --logLevel=INFO
+
+```
 * All dependencies should be configured in environment section in yaml file
 ``` powershell
 kubectl apply -f $yamlPath # file by file or whole folder
 ```
-
-## ToDo:
-- notes for orchestrators (2.*)
