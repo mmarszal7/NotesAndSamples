@@ -25,6 +25,7 @@
 - \$variable - creates new variable (e.g. `$variable = "test"`)
 - `Get-Member` - list of cmdlet properties
 - alias - shows alias and its cmdlet: `Alias ls`
+- measure-object - count lines from output
 
 ## Arrays:
 
