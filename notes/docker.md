@@ -1,6 +1,12 @@
 # Docker
 Below notes are based on project [Docker and Kubernetes for .NET Developers](https://github.com/sixeyed/dak4.net) and presentation available on https://dak4.net and https://netdd19.dak4.net
 
+## Useful commands:
+``` powershell
+docker rmi --force @(docker images -f "dangling=true" -q)               # remove all containers with undefined name 
+docker stop @(docker ps -aq)                 				# stop all containers
+```
+
 # 1. Docker CLI:
 
 ## 1.1 Containers:
