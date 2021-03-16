@@ -223,6 +223,54 @@ LIMIT
 
 **Joins** - in JOIN there **SHOULD** be foreign key (is there is not it means that there is a mistake)
 
+> **Users**
+
+| id   | name | fKey |
+|------|------|------|
+|    1 | user1 |    1 |
+|    2 | user2 |    1 |
+|    3 | user3 | NULL |
+
+> **Roles**
+
+| id   | role |
+|------|------|
+|    1 | User |
+|    2 | Admin |
+
+
+> **Users LEFT JOIN Roles**
+
+| id   | name | fKey  | id   | role |
+|------|------|-------|------|------|
+|    1 | user1 |    1 | 1    | User |
+|    2 | user2 |    1 | 1    | User |
+|    3 | user3 | NULL | NULL | NULL |
+
+> **Users RIGHT JOIN Roles = Roles LEFT JOIN Users**
+
+| id   | name | fKey | id   | role  |
+|------|------|------|------|-------|
+|    1 | user1|    1 | 1    | User  |
+|    2 | user2|    1 | 1    | User  |
+| NULL |NULL  | NULL | 2    | Admin |
+
+> **Users INNER JOIN Roles**
+
+| id   | name | fKey | id   | role  |
+|------|------|------|------|-------|
+|    1 | user1 |   1 | 1    |  User |
+|    2 | user2 |   1 | 1    |  User |
+
+> **Users OUTER JOIN Roles**
+
+| id   | name | fKey | id   | role  |
+|------|------|------|------|-------|
+|    1 | user1|   1  | 1    | User  |
+|    2 | user2|   1  | 1    | User  |
+|    3 | user3| NULL | NULL | NULL  |
+| NULL | NULL |  NULL|    2 | Admin |
+
 ## 2.6 Agregation Functions
 
 **SQL Aggregate Functions** - return a single value, calculated from values in a column:
