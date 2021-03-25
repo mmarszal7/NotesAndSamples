@@ -35,5 +35,6 @@
     exec git commit --amend --author="nick <mail@mail.pl>" -C HEAD
     exec git commit --amend --date="Mon Jan 01 00:00 2017 +0100" -C HEAD
     git push origin master --force
+    git filter-branch --prune-empty --subdirectory-filter FOLDER_NAME BRANCH_NAME   - extract folder from a repo with full history
     
 ---
