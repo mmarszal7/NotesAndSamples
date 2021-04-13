@@ -118,3 +118,6 @@ Website with hotkeys:
 * E - extrude
 * Subdivide - Select Object + RMB to open options
 * Ctrl + R - Loop Cut and Slide (create new edge parallel to existing one)
+* Shift + S - Change cursor/object positions
+* Ctrl + E/F - Edge/face options
+* Ctrl + E => Mark Seam - Creates seams for UV maps 
