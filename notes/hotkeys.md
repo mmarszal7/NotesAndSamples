@@ -91,33 +91,41 @@ Website with hotkeys:
 * Alt + number - Open application from taskbar
 
 ## 6. Blender:
+View:
 * Mouse Wheel Scroll - Zoom in and Out
 * Mouse Wheel - Rotate Camera
 * Shift + Mouse Wheel - Move Camera
-* Shift + LMB - Select Multiple Objects
+* Alt + Z - X-ray to select hidden vertices
+* Shift + Z or Z - Switch between Wireframe & Solid Shading
+* Tab - Switch between Object and Edit mode
+* N - Show / Hide object properties
+* NUM_1, NUM_3, NUM_7 - front, right, top views
+
+Object mode:
+* 1, 2, 3, 4 - Change layers
+* Shift + D - Duplicate Selected Object
+* Shift + A - Add Object
+* Shift + S - Change cursor/object positions
+* Ctrl + A - Move to location
+
+Edit mode:
+* 1, 2, 3 - Change selection option (Vertices, Edges, Faces)
+* G/R/S - Move/Rotate/Resize Objects (hold CTRL to move in steps) 
 * A - Select / Deselect All
 * B - Box Select
 * C - Circle Select
-* Alt + Z - X-ray to select hidden vertices
-* Tab - Switch between Object and Edit mode
-* G/R/S - Move/Rotate/Resize Objects (hold CTRL to move in steps) 
-* G+number - moves by specific number
+* E - extrude
 * F - create face between vertices/edges
-* NUM_1, NUM_3, NUM_7 - front, right, top views
-* NUM_9 - rotate 90deg  
-* Shift + Z or Z - Switch between Wireframe & Solid Shading
-* N - Show / Hide object properties
-* Shift + D - Duplicate Selected Object
-* Shift + A - Add Object
 * X - Delete Selected Object, vertice, edge, face
+* P - Separate 2 Objects (in Edit Mode - Loose Parts)
 * H - Hide selected object
 * Alt + H - Show hidden object
 * Ctrl + J - Joins multiple objects
-* P - Separate 2 Objects (in Edit Mode - Loose Parts)
 * Ctrl + RMB - Draw vertices
-* E - extrude
-* Subdivide - Select Object + RMB to open options
 * Ctrl + R - Loop Cut and Slide (create new edge parallel to existing one)
-* Shift + S - Change cursor/object positions
 * Ctrl + E/F - Edge/face options
 * Ctrl + E => Mark Seam - Creates seams for UV maps 
+* Crtl + A -> Scale at joints
+
+Options under RMB:
+* Subdivide - Select Object + RMB to open options
