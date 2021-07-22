@@ -8,9 +8,10 @@
     git init
     git -m commit "message"
     git log
-    git status          - file state in Staging and Working Directory
-    git add file-name   - add file to Stage
-    git diff            - diff between Working Directory and Staging
+    git status               - file state in Staging and Working Directory
+    git add file-name        - add file to Stage
+    git diff                 - diff between Working Directory and Staging
+    git diff --name-only     - lists files that have been changed
 
 ## Revert, discard, reset:
     git checkout HEAD file-name     - discards changes in the WD.
