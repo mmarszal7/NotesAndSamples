@@ -10,6 +10,21 @@
 - Options > Environment > Tabs and Windows > Show pinned tabs in separate row
 - Options > Productivity Power Tools > Power Commands > Remove and Sort Usings on Save
 - Debug > Windows > Exception Settings > CLR Exceptions
+
+### Keyboard shortcuts:
+```XML
+<KeyboardShortcuts>
+   <UserShortcuts>
+      <Shortcut Command="Edit.InsertNextMatchingCaret" Scope="Global">Ctrl+D</Shortcut>
+      <Shortcut Command="Window.CloseDocumentWindow" Scope="Global">Ctrl+W</Shortcut>
+      <Shortcut Command="Edit.MoveSelectedLinesUp" Scope="Global">Alt+Up Arrow</Shortcut>
+      <Shortcut Command="Edit.MoveSelectedLinesDown" Scope="Global">Alt+Down Arrow</Shortcut>
+      <Shortcut Command="SolutionExplorer.SyncWithActiveDocument" Scope="Global">Ctrl+[, Ctrl+S</Shortcut>
+      <Shortcut Command="ReSharper.ReSharper_GotoFile" Scope="Global">Ctrl+P</Shortcut>
+      <Shortcut Command="ReSharper.ReSharper_RefactorThis" Scope="Global">Ctrl+Shift+R</Shortcut>
+   </UserShortcuts>
+</KeyboardShortcuts>
+```
  
 ### Visual Studio Code extensions:
 - Auto Import
