@@ -1,8 +1,14 @@
 # [RabbitMQ](https://www.youtube.com/watch?v=deG25y_r6OY)
 
 ## Key Concepts:
-
-- **exchange** (router) - distributes messages betweeen queues based on binding key (defined in queues) and routing key (defined in message):
+- **AMQP** - Advanced Message Queue Protocol standard
+- **message flow** 
+  - *publisher/producer* (some service) creates a *connection* and a *channel* 
+  - *publisher* sends a message to an *exchange* (see *CQRS* below for more info about types of messages)
+  - *exchange* routes a message to a proper *queue* based on a defined *bindings* (see *bindings* below for more info about types of bindings)
+  - *consumer* gets messages from a queue(s)
+- **exchange** (router) - distributes messages betweeen queues based on binding key (defined in queues) and routing key (defined in message). Exchange can have multiple **binding** types:
+  - default - *direct* but it compares routing key with queue name instead of message binding key 
   - fan-out - sends message to every queue
   - direct (exact match) - sends message to queue where routing key == binding key
   - topic (partial match) - sends message to queue where routing key matches binding key rules:
@@ -10,14 +16,20 @@
     - \# (hash) can substitute for zero or more words
   - headers - sends message to queue where routing key in header matches binding key
 - **queue** (FIFO) - store for messages
-
-Other concepts:
-
-- bindings - routing rules defined in queues
-- producer and consumer of a message
-- message broker - centralized messageing server - application hosting exchanges and queues
-- AMQP - Advanced Message Queue Protocol standard
-- Queue persistence - messages in queue can be **durable** or **non-durable** which means that they will be stored on disk or just in-memory (performance vs. recoverability trade-off)
+- **connection** - real (TCP) connection
+- **channel** - virtual (AMQP) connection (difference between connection is that with one connection (app) you can open multiple channels)
+- **persistence** - messages in queue can be **durable** or **non-durable** which means that they will be stored on disk or just in-memory (performance vs. recoverability trade-off)
+- 
+## CQRS & Event Sourcing:
+- Rabbit is just a tool that can be used in multiple applications, e.g. for CQRS or Event Sourcing
+- **Events** vs **Commands**:
+  - both Events and Commands are types of Messages
+  - often publishing an Event is a result of a Command 
+  - Event - message is *published* to a BROKER and from there it is sent to subscribers (publishers & subscribers) - you don't care about consumers
+  - Command & Query - message is sent DIRECTLY to known address/consumer - you send message to a specific consumer
+    - Command - usually have a payload and don't return any result
+    - Query - usually don't have any payload and it's purpose is to return a value
+- **Dispatchers** and **Handlers** are on top of it all, so you can have EventHandler, CommandHandler, QueryHandler etc. although Events are usually "dispatched" directly to the message bus
 
 ## C# examples:
 
