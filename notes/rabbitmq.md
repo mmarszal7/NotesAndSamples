@@ -23,8 +23,7 @@
 ## CQRS & Event Sourcing:
 - Rabbit is just a tool that can be used in multiple applications, e.g. for CQRS or Event Sourcing
 - **Events** vs **Commands**:
-  - both Events and Commands are types of Messages
-  - often publishing an Event is a result of a Command 
+  - both Events and Commands are types of Messages - events represent something that already happened and often publishing an Event is a result of a Command 
   - Event - message is *published* to a BROKER and from there it is sent to subscribers (publishers & subscribers) - you don't care about consumers
   - Command & Query - message is sent DIRECTLY to known address/consumer - you send message to a specific consumer
     - Command - usually have a payload and don't return any result
