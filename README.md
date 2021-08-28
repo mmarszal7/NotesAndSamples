@@ -21,3 +21,4 @@
 14. [Azure](./notes/azure.md)
 15. [DDD](./notes/ddd.md)
 16. [Docker](./notes/docker.md)
+17. [F#](./notes/Fsharp.md)
