@@ -1,9 +1,9 @@
 Open questions:
 
-- *should I use pipes whenever possible - `test(x)` vs `test x` vs `x |> test`*
+- **should I use pipes whenever possible - `test(x)` vs `test x` vs `x |> test`**
 - what is this: `type DestinationIndex = int`
   > it is just an abstraction over int
-- *how to read [interfaces](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/interfaces)*
+- **how to read [interfaces](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/interfaces)**
   ```
   type INumericFSharp =
       abstract Add: x: int -> y: int -> int
