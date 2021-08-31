@@ -11,15 +11,17 @@ Open questions:
   ```
   ```f#
   type IService = 
-   abstract member testFunc: int -> string -> string
+   abstract member testFunc: string -> int -> string
 
   type TestClass() =
       interface IService with
-          member this.testFunc age name = name + ": " + age.ToString() 
+          member this.testFunc name age = name + ": " + age.ToString() 
   
   let test = TestClass()
-  (test :> IService).testFunc 5 "John" |> printf "%s"
-  // John: 5
+  let johnRecord = (test :> IService).testFunc "John" // here you 'partially applied John to testFunc
+  johnRecord 5 |> printf "%s" // John: 5
+  johnRecord 15 |> printf "%s" // John: 15
+  johnRecord 25 |> printf "%s" // John: 25
   ```
 - why there is x/model in class methods `member x.SomeMethod = ...`
   > not only 'x' but also '\_', 'this' or anything other means this
