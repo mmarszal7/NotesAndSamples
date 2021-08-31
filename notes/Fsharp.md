@@ -12,7 +12,7 @@ Open questions:
   > not only 'x' but also '\_', 'this' or anything other means this
 
 To note:
-- examples of class property declarations: `val X` vs `(x, y)` vs `member X`
+- examples of [class property declarations](https://stackoverflow.com/questions/24840948/when-should-i-use-let-member-val-and-member-this): `val X` vs `(x, y)` vs `member X`
 - example of async/await, what is `Aync\<T>`?
 - record vs class - declaration
 - option vs enum
