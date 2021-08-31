@@ -3,10 +3,23 @@ Open questions:
 - **should I use pipes whenever possible - `test(x)` vs `test x` vs `x |> test`**
 - what is this: `type DestinationIndex = int`
   > it is just an abstraction over int
-- **how to read [interfaces](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/interfaces)**
+- how to read [interfaces](https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/interfaces)
+  > https://stackoverflow.com/a/32383872
   ```
   type INumericFSharp =
       abstract Add: x: int -> y: int -> int
+  ```
+  ```f#
+  type IService = 
+   abstract member testFunc: int -> string -> string
+
+  type TestClass() =
+      interface IService with
+          member this.testFunc age name = name + ": " + age.ToString() 
+  
+  let test = TestClass()
+  (test :> IService).testFunc 5 "John" |> printf "%s"
+  // John: 5
   ```
 - why there is x/model in class methods `member x.SomeMethod = ...`
   > not only 'x' but also '\_', 'this' or anything other means this
