@@ -10,9 +10,20 @@ Open questions:
   ```
 - why there is x/model in class methods `member x.SomeMethod = ...`
   > not only 'x' but also '\_', 'this' or anything other means this
-
+- [class property declarations](https://stackoverflow.com/questions/24840948/when-should-i-use-let-member-val-and-member-this): `val X` vs `(x, y)` vs `member X`
+  ```
+  // 1. (dx : int, dy : int) is just a constructor and without properties it's useless
+  // 2. val X doesn't exist - it's only member val X or member this.X and both are similar (e.g. read-only by default)
+  // 3. difference is that val creates private field
+  type Vector2D(dx : int, dy : int) =
+      member this.dx = dx
+      member val x = 0
+  
+  let vector1 = Vector2D(3, 4)
+  printf "%i %i" vector1.dx vector1.x //vector1.dy
+  ```
 To note:
-- examples of [class property declarations](https://stackoverflow.com/questions/24840948/when-should-i-use-let-member-val-and-member-this): `val X` vs `(x, y)` vs `member X`
+
 - example of async/await, what is `Aync\<T>`?
 - record vs class - declaration
 - option vs enum
