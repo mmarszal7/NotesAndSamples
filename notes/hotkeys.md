@@ -60,6 +60,7 @@ Website with hotkeys:
 * Ctrl - make intellisense window transparent
 * **Shift + Alt + .** - Select same things (Shift + Alt + . - to unselect last selection)
 * **Shift + F9** - Debug: Quick Watch
+* Ctrl + M + O/P - collapse, open everything
 
 ## 3.5. [Resharper](https://www.jetbrains.com/help/resharper/Reference__Keyboard_Shortcuts.html):
 * Alt + R - General Resharper
