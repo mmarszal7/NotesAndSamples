@@ -21,6 +21,7 @@ docker container top $alias                                             # check 
 docker container logs $alias                                            # check contaner logs
 docker container exec (-it) $alias powershell "Get-Process"             # execute command inside container
 docker container rm --force $(docker container ls --quiet --all)        # remove all containers (even still running)
+docker image prune							# remove unused images (all versions older than latest)
 exit                                                                    # exit container
 docker export --output="latest.tar" $containerName			# export docker container to a *.tar file
 ```
